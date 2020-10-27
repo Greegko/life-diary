@@ -1,0 +1,34 @@
+{
+  "scripts": {
+    "start": "./node_modules/.bin/webpack serve --config ./config/webpack-dev.config.js --progress --inline --content-base public/"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "node-sass": "4.14.1",
+    "ramda": "0.27.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "ts-loader": "8.0.7",
+    "webpack": "5.3.0"
+  },
+  "types": "@types",
+  "devDependencies": {
+    "@types/ramda": "0.27.30",
+    "@types/react": "16.9.54",
+    "@types/react-dom": "16.9.9",
+    "css-loader": "5.0.0",
+    "pug-as-jsx-loader": "1.0.88",
+    "sass-loader": "10.0.4",
+    "source-map-loader": "1.1.2",
+    "style-loader": "2.0.0",
+    "typescript": "4.0.5",
+    "webpack-cli": "4.1.0",
+    "webpack-dev-server": "3.11.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  }
+}
