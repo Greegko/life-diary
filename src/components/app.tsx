@@ -1,3 +1,3 @@
-import template from './app.pug';
+import React from 'react';
 
-export const App = template;
+export const App = () => <div>Hello</div>

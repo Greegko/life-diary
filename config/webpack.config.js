@@ -10,7 +10,7 @@ module.exports = {
   devtool: "source-map",
 
   resolve: {
-    extensions: [".webpack.js", ".web.js", ".js", ".ts", ".tsx", ".pug"]
+    extensions: [".webpack.js", ".web.js", ".js", ".ts", ".tsx"]
   },
 
   module: {
@@ -22,10 +22,6 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: ["ts-loader"]
-      },
-      {
-        test: /\.pug$/,
-        use: ['babel-loader', 'pug-as-jsx-loader']
       }
     ]
   }
