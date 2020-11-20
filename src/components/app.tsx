@@ -27,9 +27,10 @@ export class App extends React.PureComponent<{}, AppState> {
 
   componentDidUpdate(prevProps: object, prevState: AppState) {
     if (prevState.currentUser !== this.state.currentUser) {
-      this.store.getRecords().where("userId", "==", this.state.currentUser.uid).get()
-        .then(records => {
+      this.store.getRecords().where("userId", "==", this.state.currentUser.uid).onSnapshot({
+        next: records => {
           this.setState({ records: records.docs.map(x => x.data() as DiaryRecordData) });
+        }
         });
     }
   }
