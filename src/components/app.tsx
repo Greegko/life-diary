@@ -3,7 +3,7 @@ import firebase from '../firebase';
 
 import { DiaryRecord, DiaryRecordData } from '../interface';
 import { Store } from '../store';
-import { CreateRecord } from './create-record';
+import { CreateActivity } from './create-activity';
 import { History } from './history';
 
 import { Login } from './login';
@@ -57,7 +57,7 @@ export class App extends React.PureComponent<{}, AppState> {
 
         {this.state.currentUser &&
           <div>
-            <CreateRecord save={record => this.saveRecord(record)} />
+            <CreateActivity save={record => this.saveRecord(record)} />
             <History records={this.state.records} />
           </div>
         }

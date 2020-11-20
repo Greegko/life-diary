@@ -1,51 +1,40 @@
 import * as React from 'react';
-import { lensPath, set, view } from 'ramda';
 import { ACTIVITY_OPTIONS, ActivityOption } from '../data';
-import { DiaryRecord } from "../interface";
+import { Activity, DiaryRecord } from "../interface";
 import { Options } from './common';
 
-interface CreateRecordProperties {
+interface CreateActivityProperties {
   save: (record: DiaryRecord) => void;
 }
 
-import './create-record.scss';
-export const CreateRecord = ({ save }: CreateRecordProperties) => {
+import './create-activity.scss';
+export const CreateActivity = ({ save }: CreateActivityProperties) => {
   const [activityType, setActivityType] = React.useState<ActivityOption>();
-  const [newRecord, setNewRecord] = React.useState<DiaryRecord | null>({
-    activity: {
-      name: null,
-      started: new Date()
-    }
+  const [newActivity, setNewActivity] = React.useState<Activity | null>({
+    name: null,
+    started: new Date()
   });
 
   const setActivity = (activityOption: ActivityOption) => {
     setActivityType(activityOption);
-
-    const activityName = lensPath(['activity', 'name']);
-    setNewRecord(set(activityName, activityOption.name, newRecord));
+    setNewActivity({ ...newActivity, name: activityOption.id });
   }
 
   const setDuration = (duration: number | undefined) => {
-    const durationLens = lensPath(['activity', 'duration']);
-    setNewRecord(set(durationLens, duration, newRecord));
+    setNewActivity({ ...newActivity, duration });
   }
 
   const adjustStartDate = (minuntesDiff: number) => {
-    const startedDateLens = lensPath(['activity', 'started']);
-    const date = view(startedDateLens, newRecord) as Date;
-
-    date.setTime(date.getTime() + minuntesDiff * 60 * 1000);
-    setNewRecord({ ...newRecord });
+    const started = new Date(newActivity.started.getTime() + minuntesDiff * 60 * 1000);
+    setNewActivity({ ...newActivity, started });
   }
 
-  const saveRecord = () => {
-    save(newRecord);
+  const saveActivity = () => {
+    save({ activity: newActivity });
     setActivityType(null);
-    setNewRecord({
-      activity: {
-        name: null,
-        started: new Date()
-      }
+    setNewActivity({
+      name: null,
+      started: new Date()
     });
   }
 
@@ -63,7 +52,7 @@ export const CreateRecord = ({ save }: CreateRecordProperties) => {
       <div className="mb-1">
         Duration:
         <Options
-          value={newRecord.activity.duration}
+          value={newActivity.duration}
           options={[undefined, 15, 30, 45, 60]}
           valueChange={duration => setDuration(duration)}
           label={duration => duration ? duration + "m" : "ø"}
@@ -76,9 +65,9 @@ export const CreateRecord = ({ save }: CreateRecordProperties) => {
         <span className="date-adjuster" onClick={() => adjustStartDate(-5)}>{"<"}</span>
 
         <span className="start-date">
-          {newRecord.activity.started.toISOString().split('T')[0]}
+          {newActivity.started.toISOString().split('T')[0]}
           {' '}
-          {newRecord.activity.started.toISOString().split('T')[1].split(':').slice(0, 2).join(':')}
+          {newActivity.started.toISOString().split('T')[1].split(':').slice(0, 2).join(':')}
         </span>
 
         <span className="date-adjuster" onClick={() => adjustStartDate(5)}>{">"}</span>
@@ -87,7 +76,7 @@ export const CreateRecord = ({ save }: CreateRecordProperties) => {
 
       <hr />
 
-      <button className="save_btn" onClick={saveRecord}>Save</button>
+      <button className="save_btn" onClick={saveActivity}>Save</button>
     </div>
   )
 }
