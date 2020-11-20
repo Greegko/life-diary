@@ -77,3 +77,13 @@ export const ACTIVITY_OPTIONS: ActivityOption[] = [
     name: 'Go to sleep'
   }
 ];
+
+export enum Mood {
+  Happy = "happy",
+  Sad = "sad",
+  Inpsired = "inpsired",
+  Motivated = "motivated",
+  Sick = "sick",
+  Weak = "weak",
+  Energetic = "energetic"
+};

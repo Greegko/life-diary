@@ -1,3 +1,5 @@
+import { Mood } from "./data";
+
 export interface Activity {
   name: string;
   started: Date;
@@ -5,7 +7,8 @@ export interface Activity {
 }
 
 export interface DiaryRecord {
-  activity: Activity;
+  mood?: Mood;
+  activity?: Activity;
   comment?: string;
 }
 

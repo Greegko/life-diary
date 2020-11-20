@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface OptionsProperties<T> {
-  value: T;
+  value?: T;
   options: T[];
   label?: (value: T) => string;
   valueChange: (value: T) => void;
