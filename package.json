@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build": "./node_modules/.bin/webpack --config ./config/webpack.config.js --content-base public/",
     "start": "./node_modules/.bin/webpack serve --config ./config/webpack-dev.config.js --progress --inline --content-base public/"
   },
   "dependencies": {
