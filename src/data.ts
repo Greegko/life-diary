@@ -1,4 +1,4 @@
-interface ActivityOption {
+export interface ActivityOption {
   id: string;
   name: string;
 }

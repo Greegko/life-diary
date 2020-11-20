@@ -1,0 +1,13 @@
+.options__option {
+  margin: 5px;
+  padding: 10px 15px;
+  border: 1px solid rgba(#000000, 0.4);
+
+  display: inline-block;
+  cursor: pointer;
+
+  &--selected, &:hover {
+    background-color: rgb(105, 116, 238);
+    color: white;
+  }
+}

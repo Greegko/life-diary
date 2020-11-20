@@ -13,6 +13,7 @@ interface AppState {
   records: DiaryRecordData[];
 }
 
+import './style.scss';
 export class App extends React.PureComponent<{}, AppState> {
   state: AppState = {
     records: [],
@@ -31,7 +32,7 @@ export class App extends React.PureComponent<{}, AppState> {
         next: records => {
           this.setState({ records: records.docs.map(x => x.data() as DiaryRecordData) });
         }
-        });
+      });
     }
   }
 
