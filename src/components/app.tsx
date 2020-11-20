@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../firebase';
+import firebase from 'firebase';
 
 import { DiaryRecord, DiaryRecordData } from '../interface';
 import { Store } from '../store';

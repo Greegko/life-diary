@@ -1,4 +1,4 @@
-import firebase from './firebase';
+import firebase from 'firebase';
 import { DiaryRecord } from './interface';
 
 export class Store {

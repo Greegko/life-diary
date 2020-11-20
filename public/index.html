@@ -5,11 +5,31 @@
   <title>Life Diary</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,800&amp;subset=latin-ext" rel="stylesheet">
+
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+  <script defer src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCMMAW7t9ed_SUQ2dIqEbrN4AJWRKrILls",
+        authDomain: "personal-development-185f9.firebaseapp.com",
+        databaseURL: "https://personal-development-185f9.firebaseio.com",
+        projectId: "personal-development-185f9",
+        storageBucket: "personal-development-185f9.appspot.com",
+        messagingSenderId: "682482388853",
+        appId: "1:682482388853:web:e60d0a23731c3607448d3c"
+      });
+    });
+  </script>
 </head>
 
 <body>
   <div id="app"></div>
-  <script src="bundle.js"></script>
+  <script defer src="bundle.js"></script>
 </body>
 
 </html>

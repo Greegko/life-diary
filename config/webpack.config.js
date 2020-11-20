@@ -4,7 +4,13 @@ module.exports = {
 
   output: {
     filename: "bundle.js",
-    path: __dirname + "/public"
+    path: __dirname + "/../public"
+  },
+
+  externals: {
+    firebase: 'firebase',
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
 
   devtool: "source-map",
