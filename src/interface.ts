@@ -1,5 +1,3 @@
-export enum Mood { Happy, Sad, Curious, Motivated, Stressed, Energetic, Tired };
-
 export interface Activity {
   name: string;
   started: Date;
@@ -8,8 +6,7 @@ export interface Activity {
 
 export interface DiaryRecord {
   activity: Activity;
-  mood: Mood;
-  comment: string;
+  comment?: string;
 }
 
 export interface DiaryRecordData extends DiaryRecord {

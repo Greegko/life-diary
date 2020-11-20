@@ -1,8 +1,9 @@
 import React from 'react';
 import firebase from '../firebase';
 
-import { DiaryRecordData } from '../interface';
+import { DiaryRecord, DiaryRecordData } from '../interface';
 import { Store } from '../store';
+import { CreateRecord } from './create-record';
 import { History } from './history';
 
 import { Login } from './login';
@@ -39,6 +40,10 @@ export class App extends React.PureComponent<{}, AppState> {
     });
   }
 
+  saveRecord(record: DiaryRecord): void {
+    this.store.addRecord(record, this.state.currentUser.uid);
+  }
+
   render() {
     return (
       <div>
@@ -50,6 +55,7 @@ export class App extends React.PureComponent<{}, AppState> {
 
         {this.state.currentUser &&
           <div>
+            <CreateRecord save={record => this.saveRecord(record)} />
             <History records={this.state.records} />
           </div>
         }

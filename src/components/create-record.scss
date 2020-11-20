@@ -1,0 +1,25 @@
+.activity {
+  margin: 5px;
+  padding: 10px 15px;
+  border: 1px solid rgba(#000000, 0.4);
+
+  display: inline-block;
+  cursor: pointer;
+
+  &--active, &:hover {
+    background-color: rgb(105, 116, 238);
+    color: white;
+  }
+}
+
+.save_btn {
+  padding: 15px 25px;
+  border: 1px solid black;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: rgb(110, 205, 51);
+
+  &:hover {
+    background-color: rgb(75, 184, 7);
+  }
+}
