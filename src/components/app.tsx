@@ -59,7 +59,9 @@ export class App extends React.PureComponent<{}, AppState> {
         {this.state.currentUser &&
           <div>
             <CreateMood save={record => this.saveRecord(record)} />
+            <hr />
             <CreateActivity save={record => this.saveRecord(record)} />
+            <hr />
             <History records={this.state.records} />
           </div>
         }

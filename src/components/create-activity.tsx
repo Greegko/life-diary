@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ACTIVITY_OPTIONS, ActivityOption } from '../data';
 import { Activity, DiaryRecord } from "../interface";
+import { formatDate } from './utils';
 import { Options } from './common';
 
 interface CreateActivityProperties {
@@ -65,9 +66,7 @@ export const CreateActivity = ({ save }: CreateActivityProperties) => {
         <span className="date-adjuster" onClick={() => adjustStartDate(-5)}>{"<"}</span>
 
         <span className="start-date">
-          {newActivity.started.toISOString().split('T')[0]}
-          {' '}
-          {newActivity.started.toISOString().split('T')[1].split(':').slice(0, 2).join(':')}
+          {formatDate(newActivity.started)}
         </span>
 
         <span className="date-adjuster" onClick={() => adjustStartDate(5)}>{">"}</span>

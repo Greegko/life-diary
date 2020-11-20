@@ -7,8 +7,8 @@ export class Store {
     return firebase.firestore().collection('/records').add({
       ...record,
       userId,
-      createAt: new Date(),
-      updateAt: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
   }
 
