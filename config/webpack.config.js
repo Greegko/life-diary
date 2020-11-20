@@ -23,10 +23,12 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.tsx?$/,
+        exclude: /node_modules/,
         use: ["ts-loader"]
       }
     ]
