@@ -1,19 +1,23 @@
 import firebase from 'firebase';
-import { DiaryRecord } from './interface';
+import { DiaryRecord, DiaryRecordData } from './interface';
 
 export class Store {
 
+  private userRoot(userId) {
+    return firebase.firestore().collection('/users').doc(userId);
+  }
+
   addRecord(record: DiaryRecord, userId: string) {
-    return firebase.firestore().collection('/records').add({
+    return this.userRoot(userId).collection('/records').add({
       ...record,
-      userId,
       createdAt: new Date(),
       updatedAt: new Date()
     });
   }
 
-  getRecords() {
-    return firebase.firestore().collection('/records');
+  getRecords(userId: string): firebase.firestore.CollectionReference<DiaryRecordData> {
+    return this.userRoot(userId).collection('/records') as firebase.firestore.CollectionReference<DiaryRecordData>;
+  }
   }
 
 }
