@@ -4,23 +4,22 @@
     "start": "./node_modules/.bin/webpack serve --config ./config/webpack-dev.config.js --progress --inline --content-base public/"
   },
   "dependencies": {
-    "node-sass": "4.14.1",
+    "node-sass": "5.0.0",
     "ramda": "0.27.1",
-    "webpack": "5.3.0"
+    "webpack": "5.6.0"
   },
-  "types": "@types",
   "devDependencies": {
-    "@types/ramda": "0.27.30",
-    "@types/react": "16.9.54",
-    "@types/react-dom": "16.9.9",
-    "css-loader": "5.0.0",
-    "firebase": "3.2.1",
-    "sass-loader": "10.0.4",
+    "@types/ramda": "0.27.32",
+    "@types/react": "17.0.0",
+    "@types/react-dom": "17.0.0",
+    "css-loader": "5.0.1",
+    "firebase": "8.1.1",
+    "sass-loader": "10.1.0",
     "source-map-loader": "1.1.2",
     "style-loader": "2.0.0",
-    "ts-loader": "8.0.7",
-    "typescript": "4.0.5",
-    "webpack-cli": "4.1.0",
-    "webpack-dev-server": "3.11.0"
+    "ts-loader": "8.0.11",
+    "typescript": "4.1.2",
+    "webpack-cli": "4.2.0",
+    "webpack-dev-server": "^3.11.0"
   }
 }
