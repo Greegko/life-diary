@@ -25,7 +25,7 @@ const MoodHistory = ({ record }: { record: DiaryRecordData }) => (
 const ActivityHistory = ({ record }: { record: DiaryRecordData }) => (
   <div className="record-entry">
     <div>Activity</div>
-    <div>{record.activity.name}</div>
+    <div>{record.activity.id}</div>
     <div>{formatDate(record.activity.started.toDate())}</div>
   </div>
 );

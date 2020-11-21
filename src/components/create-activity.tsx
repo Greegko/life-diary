@@ -1,24 +1,24 @@
 import * as React from 'react';
-import { ACTIVITY_OPTIONS, ActivityOption } from '../data';
-import { Activity, DiaryRecord } from "../interface";
+import { Activity, ActivityConfig, DiaryRecord } from "../interface";
 import { formatDate } from './utils';
 import { Options } from './common';
 
 interface CreateActivityProperties {
+  activityOptions: ActivityConfig[];
   save: (record: DiaryRecord) => void;
 }
 
 import './create-activity.scss';
-export const CreateActivity = ({ save }: CreateActivityProperties) => {
-  const [activityType, setActivityType] = React.useState<ActivityOption>();
+export const CreateActivity = ({ activityOptions, save }: CreateActivityProperties) => {
+  const [activityType, setActivityType] = React.useState<ActivityConfig>();
   const [newActivity, setNewActivity] = React.useState<Activity | null>({
-    name: null,
+    id: null,
     started: new Date()
   });
 
-  const setActivity = (activityOption: ActivityOption) => {
+  const setActivity = (activityOption: ActivityConfig) => {
     setActivityType(activityOption);
-    setNewActivity({ ...newActivity, name: activityOption.id });
+    setNewActivity({ ...newActivity, id: activityOption.id });
   }
 
   const setDuration = (duration: number | undefined) => {
@@ -34,7 +34,7 @@ export const CreateActivity = ({ save }: CreateActivityProperties) => {
     save({ activity: newActivity });
     setActivityType(null);
     setNewActivity({
-      name: null,
+      id: null,
       started: new Date()
     });
   }
@@ -43,9 +43,9 @@ export const CreateActivity = ({ save }: CreateActivityProperties) => {
     <div>
       <Options
         value={activityType}
-        options={ACTIVITY_OPTIONS}
+        options={activityOptions}
         valueChange={activityOption => setActivity(activityOption)}
-        label={activity => activity.name}
+        label={activity => activity.label}
       ></Options>
 
       <hr />

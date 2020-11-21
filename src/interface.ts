@@ -1,14 +1,13 @@
 import firebase from 'firebase';
-import { Mood } from "./data";
 
 export interface Activity {
-  name: string;
+  id: ActivityConfig['id'];
   started: Date;
   duration?: number;
 }
 
 export interface DiaryRecord {
-  mood?: Mood;
+  mood?: MoodConfig['id'];
   activity?: Activity;
   comment?: string;
 }
@@ -20,4 +19,12 @@ export interface DiaryRecordData extends DiaryRecord {
   createdAt: firebase.firestore.Timestamp;
   updatedAt: firebase.firestore.Timestamp;
   userId: string;
+}
+
+export type MoodConfig = { id: string, label: string };
+export type ActivityConfig = { id: string, label: string };
+
+export interface ConfigData {
+  moods: MoodConfig[];
+  activities: ActivityConfig[];
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 
-import { DiaryRecord, DiaryRecordData } from '../interface';
+import { ActivityConfig, DiaryRecord, DiaryRecordData, MoodConfig } from '../interface';
 import { Store } from '../store';
 import { CreateActivity } from './create-activity';
 import { CreateMood } from './create-mood';
@@ -12,12 +12,17 @@ import { Login } from './login';
 interface AppState {
   currentUser: firebase.User | null;
   records: DiaryRecordData[];
+  configs: {
+    activities: ActivityConfig[];
+    moods: MoodConfig[];
+  }
 }
 
 import './style.scss';
 export class App extends React.PureComponent<{}, AppState> {
   state: AppState = {
     records: [],
+    configs: { activities: [], moods: [] },
     currentUser: null
   };
 
@@ -34,6 +39,8 @@ export class App extends React.PureComponent<{}, AppState> {
           this.setState({ records: records.docs.map(x => x.data() as DiaryRecordData) });
         }
       });
+
+      this.store.getConfig(this.state.currentUser.uid).then(configs => this.setState({ configs }));
     }
   }
 
@@ -58,9 +65,9 @@ export class App extends React.PureComponent<{}, AppState> {
 
         {this.state.currentUser &&
           <div>
-            <CreateMood save={record => this.saveRecord(record)} />
+            <CreateMood moodOptions={this.state.configs.moods} save={record => this.saveRecord(record)} />
             <hr />
-            <CreateActivity save={record => this.saveRecord(record)} />
+            <CreateActivity activityOptions={this.state.configs.activities} save={record => this.saveRecord(record)} />
             <hr />
             <History records={this.state.records} />
           </div>
