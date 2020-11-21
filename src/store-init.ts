@@ -3,8 +3,8 @@ import { ConfigData } from "./interface";
 export const STORE_CONFIG_INIT: ConfigData = {
   activities: [
     {
-      id: "entetainment",
-      label: "Entetainment"
+      id: "entertainment",
+      label: "Entertainment"
     },
     {
       id: "work",
