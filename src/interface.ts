@@ -22,7 +22,7 @@ export interface DiaryRecordData extends DiaryRecord {
 }
 
 export type MoodConfig = { id: string, label: string };
-export type ActivityConfig = { id: string, label: string };
+export type ActivityConfig = { id: string, label: string, nsfw?: boolean };
 
 export interface ConfigData {
   moods: MoodConfig[];
