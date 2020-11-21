@@ -8,6 +8,9 @@ module.exports = Object.assign(webpackConfig, {
     historyApiFallback: true,
     stats: "minimal"
   },
+
+  devtool: "source-map",
+
   optimization: {
     concatenateModules: true
   }

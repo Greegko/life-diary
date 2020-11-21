@@ -13,8 +13,6 @@ module.exports = {
     'react-dom': 'ReactDOM'
   },
 
-  devtool: "source-map",
-
   resolve: {
     extensions: [".webpack.js", ".web.js", ".js", ".ts", ".tsx"]
   },
