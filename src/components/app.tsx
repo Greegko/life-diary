@@ -70,6 +70,10 @@ export class App extends React.PureComponent<{}, AppState> {
             <CreateActivity activityOptions={this.state.configs.activities} save={record => this.saveRecord(record)} />
             <hr />
             <History records={this.state.records} />
+            <hr />
+            <button onClick={() => firebase.auth().signOut()}>
+              Logout
+            </button>
           </div>
         }
       </div>
