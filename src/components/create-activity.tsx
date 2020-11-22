@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Activity, ActivityConfig, DiaryRecord } from "../interface";
 import { formatDate, formatDuration } from './utils';
-import { Options } from './common';
+import { Options, Stepper } from './common';
 
 interface CreateActivityProperties {
   activityOptions: ActivityConfig[];
@@ -60,28 +60,12 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
 
       <div className="mb-1">
         Duration:
-        <span className="adjuster" onClick={() => adjustDuration(-30)}>{"<<"}</span>
-        <span className="adjuster" onClick={() => adjustDuration(-5)}>{"<"}</span>
-
-        <span className="duration">
-          {formatDuration(newActivity.duration || 0)}
-        </span>
-
-        <span className="adjuster" onClick={() => adjustDuration(5)}>{">"}</span>
-        <span className="adjuster" onClick={() => adjustDuration(30)}>{">>"}</span>
+        <Stepper value={formatDuration(newActivity.duration || 0)} onChange={(step: number) => adjustDuration(step)} />
       </div>
 
       <div className="mb-1">
         Start time:
-        <span className="adjuster" onClick={() => adjustStartDate(-30)}>{"<<"}</span>
-        <span className="adjuster" onClick={() => adjustStartDate(-5)}>{"<"}</span>
-
-        <span className="start-date">
-          {formatDate(newActivity.started)}
-        </span>
-
-        <span className="adjuster" onClick={() => adjustStartDate(5)}>{">"}</span>
-        <span className="adjuster" onClick={() => adjustStartDate(30)}>{">>"}</span>
+        <Stepper value={formatDate(newActivity.started)} onChange={(step: number) => adjustStartDate(step)} />
       </div>
 
       <hr />
