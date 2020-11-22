@@ -8,7 +8,6 @@ interface CreateActivityProperties {
   save: (record: DiaryRecord) => void;
 }
 
-import './create-activity.scss';
 export const CreateActivity = ({ activityOptions, save }: CreateActivityProperties) => {
   const [activityType, setActivityType] = React.useState<ActivityConfig>();
   const [newActivity, setNewActivity] = React.useState<Activity | null>({

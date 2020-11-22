@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { ActivityConfig, DiaryRecord, DiaryRecordData, MoodConfig } from '../interface';
 import { Store } from '../store';
 import { CreateActivity } from './create-activity';
+import { CreateComment } from './create-comment';
 import { CreateMood } from './create-mood';
 import { History } from './history';
 
@@ -19,6 +20,7 @@ interface AppState {
 }
 
 import './style.scss';
+import './theme.scss';
 export class App extends React.PureComponent<{}, AppState> {
   state: AppState = {
     records: [],
@@ -65,6 +67,8 @@ export class App extends React.PureComponent<{}, AppState> {
 
         {this.state.currentUser &&
           <div>
+            <CreateComment save={record => this.saveRecord(record)} />
+            <hr />
             <CreateMood moodOptions={this.state.configs.moods} save={record => this.saveRecord(record)} />
             <hr />
             <CreateActivity activityOptions={this.state.configs.activities} save={record => this.saveRecord(record)} />

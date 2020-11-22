@@ -10,7 +10,11 @@ import './history.scss';
 export const History = (props: HistoryProperties) => (
   <div>
     History: {props.records.length}
-    {props.records.sort(recordOrderer).map((record, i) => record.activity ? <ActivityHistory key={i} record={record} /> : <MoodHistory key={i} record={record} />)}
+    {props.records.sort(recordOrderer).map((record, i) => {
+      if (record.activity) return <ActivityHistory key={i} record={record} />;
+      if (record.mood) return <MoodHistory key={i} record={record} />;
+      if (record.comment) return <CommentHistory key={i} record={record} />
+    })}
   </div>
 );
 
@@ -20,6 +24,13 @@ const recordOrderer = (x: DiaryRecordData, y: DiaryRecordData) => {
 
   return dateX < dateY ? 1 : -1;
 }
+
+const CommentHistory = ({ record }: { record: DiaryRecordData }) => (
+  <div className="record-entry">
+    <div>Comment</div>
+    <div>{record.comment}</div>
+  </div>
+)
 
 const MoodHistory = ({ record }: { record: DiaryRecordData }) => (
   <div className="record-entry">
