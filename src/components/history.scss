@@ -1,4 +1,11 @@
-.record-entry div {
-  width: 33%;
-  display: inline-block;
+.record-entry {
+  div:not(.new-line) {
+    width: 33%;
+    display: inline-block;
+  }
+
+  .comment {
+    width: 100%;
+    white-space: pre-wrap;
+  }
 }
