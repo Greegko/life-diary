@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Activity, ActivityConfig, DiaryRecord } from "../interface";
-import { formatDate } from './utils';
+import { formatDate, formatDuration } from './utils';
 import { Options } from './common';
 
 interface CreateActivityProperties {
@@ -21,8 +21,10 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
     setNewActivity({ ...newActivity, id: activityOption.id });
   }
 
-  const setDuration = (duration: number | undefined) => {
-    setNewActivity({ ...newActivity, duration });
+  const adjustDuration = (duration: number | undefined) => {
+    const newDuration = Math.max(0, (newActivity.duration || 0) + duration);
+
+    setNewActivity({ ...newActivity, duration: newDuration > 0 ? newDuration : undefined });
   }
 
   const adjustStartDate = (minuntesDiff: number) => {
@@ -52,25 +54,28 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
 
       <div className="mb-1">
         Duration:
-        <Options
-          value={newActivity.duration}
-          options={[undefined, 15, 30, 45, 60]}
-          valueChange={duration => setDuration(duration)}
-          label={duration => duration ? duration + "m" : "ø"}
-        ></Options>
+        <span className="adjuster" onClick={() => adjustDuration(-30)}>{"<<"}</span>
+        <span className="adjuster" onClick={() => adjustDuration(-5)}>{"<"}</span>
+
+        <span className="duration">
+          {formatDuration(newActivity.duration || 0)}
+        </span>
+
+        <span className="adjuster" onClick={() => adjustDuration(5)}>{">"}</span>
+        <span className="adjuster" onClick={() => adjustDuration(30)}>{">>"}</span>
       </div>
 
       <div className="mb-1">
         Start time:
-        <span className="date-adjuster" onClick={() => adjustStartDate(-30)}>{"<<"}</span>
-        <span className="date-adjuster" onClick={() => adjustStartDate(-5)}>{"<"}</span>
+        <span className="adjuster" onClick={() => adjustStartDate(-30)}>{"<<"}</span>
+        <span className="adjuster" onClick={() => adjustStartDate(-5)}>{"<"}</span>
 
         <span className="start-date">
           {formatDate(newActivity.started)}
         </span>
 
-        <span className="date-adjuster" onClick={() => adjustStartDate(5)}>{">"}</span>
-        <span className="date-adjuster" onClick={() => adjustStartDate(30)}>{">>"}</span>
+        <span className="adjuster" onClick={() => adjustStartDate(5)}>{">"}</span>
+        <span className="adjuster" onClick={() => adjustStartDate(30)}>{">>"}</span>
       </div>
 
       <hr />
