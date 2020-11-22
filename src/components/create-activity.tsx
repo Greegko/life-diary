@@ -18,18 +18,24 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
 
   const setActivity = (activityOption: ActivityConfig) => {
     setActivityType(activityOption);
-    setNewActivity({ ...newActivity, id: activityOption.id });
+    setNewActivity(activity => ({ ...activity, id: activityOption.id }));
   }
 
   const adjustDuration = (duration: number | undefined) => {
-    const newDuration = Math.max(0, (newActivity.duration || 0) + duration);
+    const activityDuration = newActivity.duration || 0;
+    const newDuration = Math.max(0, activityDuration + duration);
+    const diff = activityDuration - newDuration;
 
-    setNewActivity({ ...newActivity, duration: newDuration > 0 ? newDuration : undefined });
+    if (diff !== 0) {
+      adjustStartDate(diff);
+    }
+
+    setNewActivity(activity => ({ ...activity, duration: newDuration > 0 ? newDuration : undefined }));
   }
 
   const adjustStartDate = (minuntesDiff: number) => {
     const started = new Date(newActivity.started.getTime() + minuntesDiff * 60 * 1000);
-    setNewActivity({ ...newActivity, started });
+    setNewActivity(activity => ({ ...activity, started }));
   }
 
   const saveActivity = () => {
