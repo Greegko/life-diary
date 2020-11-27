@@ -1,9 +1,11 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
   mode: 'production',
   entry: ["./src/main.tsx"],
 
   output: {
-    filename: "bundle.js",
+    filename: "[name].[contenthash].js",
     path: __dirname + "/../public"
   },
 
@@ -15,6 +17,25 @@ module.exports = {
 
   resolve: {
     extensions: [".webpack.js", ".web.js", ".js", ".ts", ".tsx"]
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index_template.html'
+    })
+  ],
+
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
 
   module: {
