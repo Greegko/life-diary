@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 export const timeFormat = 'HH:mm';
 export const dateFormat = 'YYYY-MM-DD';
@@ -9,5 +11,5 @@ export const formatDate = (date: Date) => {
 }
 
 export const formatDuration = (duration: number) => {
-  return dayjs(duration * 60 * 1000).format(timeFormat);
+  return dayjs(duration * 60 * 1000).utc().format(timeFormat);
 }
