@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import { STORE_CONFIG_INIT } from './store-init';
 import { ConfigData, DiaryRecord, DiaryRecordData } from './interface';
+import { DiaryRecordDataConverter } from './converters';
 
 export class Store {
 
@@ -23,7 +24,7 @@ export class Store {
   }
 
   getRecords(userId: string): firebase.firestore.CollectionReference<DiaryRecordData> {
-    return this.userRoot(userId).collection('/records') as firebase.firestore.CollectionReference<DiaryRecordData>;
+    return this.userRoot(userId).collection('/records').withConverter(DiaryRecordDataConverter) as firebase.firestore.CollectionReference<DiaryRecordData>;
   }
 
   getConfig(userId: string) {

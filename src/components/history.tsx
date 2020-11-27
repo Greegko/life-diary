@@ -32,7 +32,7 @@ const CommentHistory = ({ record }: { record: DiaryRecordData }) => {
     <div className="record-entry">
       <div>Comment</div>
       <div style={{ cursor: 'pointer' }} onClick={() => setOpen(!open)}>{open ? "[close]" : "[open]"}</div>
-      <div>{formatDate(record.createdAt.toDate())}</div>
+      <div>{formatDate(record.createdAt)}</div>
       {open && <pre className="new-line comment">{record.comment}</pre>}
     </div>
   )
@@ -41,7 +41,7 @@ const MoodHistory = ({ record }: { record: DiaryRecordData }) => (
   <div className="record-entry">
     <div>Mood</div>
     <div>{record.mood}</div>
-    <div>{formatDate(record.createdAt.toDate())}</div>
+    <div>{formatDate(record.createdAt)}</div>
   </div>
 );
 
@@ -49,6 +49,6 @@ const ActivityHistory = ({ record }: { record: DiaryRecordData }) => (
   <div className="record-entry">
     <div>Activity</div>
     <div>{record.activity.id}</div>
-    <div>{formatDate(record.activity.started.toDate())}</div>
+    <div>{formatDate(record.activity.started)}</div>
   </div>
 );

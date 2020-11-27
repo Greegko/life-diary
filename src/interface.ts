@@ -1,5 +1,3 @@
-import firebase from 'firebase';
-
 export interface Activity {
   id: ActivityConfig['id'];
   started: Date;
@@ -13,11 +11,8 @@ export interface DiaryRecord {
 }
 
 export interface DiaryRecordData extends DiaryRecord {
-  activity?: Activity & {
-    started: firebase.firestore.Timestamp;
-  }
-  createdAt: firebase.firestore.Timestamp;
-  updatedAt: firebase.firestore.Timestamp;
+  createdAt: Date;
+  updatedAt: Date;
   userId: string;
 }
 
