@@ -8,6 +8,7 @@ import { CreateComment } from './create-comment';
 import { CreateMood } from './create-mood';
 import { History } from './history';
 import { Login } from './login';
+import { Swipeable } from './common';
 
 enum Page { Home, Comment, Mood, Activity, History, Account };
 
@@ -60,29 +61,41 @@ export class App extends React.PureComponent<{}, AppState> {
     this.store.addRecord(record, this.state.currentUser.uid);
   }
 
-  render() {
-    return (
-      <div>
-        {!this.state.currentUser &&
-          <div>
-            <Login login={this.login} />
-          </div>
-        }
+  onSwipeRight() {
+    this.setState(state => ({ tab: Math.max(0, state.tab - 1) }));
+  }
 
-        {this.state.currentUser && <div className='tab-content'>
-          {this.state.tab === Page.Home && <div>Home</div>}
-          {this.state.tab === Page.Comment && <CreateComment save={record => this.saveRecord(record)} />}
-          {this.state.tab === Page.Mood && <CreateMood moodOptions={this.state.configs.moods} save={record => this.saveRecord(record)} />}
-          {this.state.tab === Page.Activity && <CreateActivity activityOptions={this.state.configs.activities} save={record => this.saveRecord(record)} />}
-          {this.state.tab === Page.History && <History records={this.state.records} />}
-          {this.state.tab === Page.Account && (
-            <div>
-              <button onClick={() => firebase.auth().signOut()}>
-                Logout
-              </button>
-            </div>
-          )}
-        </div>}
+  onSwipeLeft() {
+    this.setState(state => ({ tab: Math.min(Page.Account, state.tab + 1) }));
+  }
+
+  render() {
+    if (!this.state.currentUser) {
+      return (
+        <div>
+          <Login login={this.login} />
+        </div>
+      );
+    }
+
+    return (
+      <>
+        <Swipeable onSwipeLeft={() => this.onSwipeLeft()} onSwipeRight={() => this.onSwipeRight()}>
+          {this.state.currentUser && <div className='tab-content'>
+            {this.state.tab === Page.Home && <div>Home</div>}
+            {this.state.tab === Page.Comment && <CreateComment save={record => this.saveRecord(record)} />}
+            {this.state.tab === Page.Mood && <CreateMood moodOptions={this.state.configs.moods} save={record => this.saveRecord(record)} />}
+            {this.state.tab === Page.Activity && <CreateActivity activityOptions={this.state.configs.activities} save={record => this.saveRecord(record)} />}
+            {this.state.tab === Page.History && <History records={this.state.records} />}
+            {this.state.tab === Page.Account && (
+              <div>
+                <button onClick={() => firebase.auth().signOut()}>
+                  Logout
+            </button>
+              </div>
+            )}
+          </div>}
+        </Swipeable>
 
         <div className="tabs">
           <div className={"tab" + (this.state.tab === Page.Home ? " tab--active" : "")} onClick={() => this.setState({ tab: Page.Home })}>Home</div>
@@ -92,7 +105,7 @@ export class App extends React.PureComponent<{}, AppState> {
           <div className={"tab" + (this.state.tab === Page.History ? " tab--active" : "")} onClick={() => this.setState({ tab: Page.History })}>History</div>
           <div className={"tab" + (this.state.tab === Page.Account ? " tab--active" : "")} onClick={() => this.setState({ tab: Page.Account })}>Account</div>
         </div>
-      </div>
+      </>
     )
   }
 }
