@@ -1,0 +1,25 @@
+html {
+  user-select: none;
+}
+
+.tabs {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  display: flex;
+
+  .tab {
+    flex: 1;
+    border: 1px solid black;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+
+    &--active {
+      background-color: rgb(105, 116, 238);
+      color: white;
+    }
+  }
+}
