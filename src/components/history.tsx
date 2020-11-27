@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { DiaryRecordData } from '../interface';
 import { formatDate } from './utils';
 

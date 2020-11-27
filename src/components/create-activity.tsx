@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Activity, ActivityConfig, DiaryRecord } from "../interface";
 import { formatDate, formatDuration } from './utils';
 import { Options, Stepper } from './common';

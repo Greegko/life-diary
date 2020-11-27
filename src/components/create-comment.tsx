@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { DiaryRecord } from "../interface";
 
 interface CreateCommentProperties {

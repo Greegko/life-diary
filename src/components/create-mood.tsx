@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { DiaryRecord, MoodConfig } from "../interface";
 import { Options } from './common';
 
