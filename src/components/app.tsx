@@ -91,7 +91,7 @@ export class App extends React.PureComponent<{}, AppState> {
               <div>
                 <button onClick={() => firebase.auth().signOut()}>
                   Logout
-            </button>
+                </button>
               </div>
             )}
           </div>}

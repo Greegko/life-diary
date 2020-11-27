@@ -9,7 +9,7 @@ interface HistoryProperties {
 import './history.scss';
 export const History = (props: HistoryProperties) => (
   <div>
-    History: {props.records.length}
+    <h2>History: {props.records.length}</h2>
     {props.records.sort(recordOrderer).map((record, i) => {
       if (record.activity) return <ActivityHistory key={i} record={record} />;
       if (record.mood) return <MoodHistory key={i} record={record} />;
@@ -46,7 +46,7 @@ const MoodHistory = ({ record }: { record: DiaryRecordData }) => (
 );
 
 const ActivityHistory = ({ record }: { record: DiaryRecordData }) => (
-  <div className="record-entry">
+  <div className={"record-entry" + (record.activity.duration === 'timer' ? ' record-entry--active' : "")}>
     <div>Activity</div>
     <div>{record.activity.id}</div>
     <div>{formatDate(record.activity.started)}</div>

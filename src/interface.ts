@@ -1,7 +1,7 @@
 export interface Activity {
   id: ActivityConfig['id'];
   started: Date;
-  duration?: number;
+  duration?: number | 'timer';
 }
 
 export interface DiaryRecord {

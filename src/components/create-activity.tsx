@@ -21,7 +21,7 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
   }
 
   const adjustDuration = (duration: number | undefined) => {
-    const activityDuration = newActivity.duration || 0;
+    const activityDuration = (newActivity.duration as number) || 0;
     const newDuration = Math.max(0, activityDuration + duration);
     const diff = activityDuration - newDuration;
 
@@ -37,8 +37,8 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
     setNewActivity(activity => ({ ...activity, started }));
   }
 
-  const saveActivity = () => {
-    save({ activity: newActivity });
+  const saveActivity = (timer: boolean) => {
+    save({ activity: { ...newActivity, duration: timer ? 'timer' : newActivity.duration } });
     setActivityType(null);
     setNewActivity({
       id: null,
@@ -59,7 +59,7 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
 
       <div className="mb-1">
         Duration:
-        <Stepper value={formatDuration(newActivity.duration || 0)} onChange={(step: number) => adjustDuration(step)} />
+        <Stepper value={formatDuration((newActivity.duration as number) || 0)} onChange={(step: number) => adjustDuration(step)} />
       </div>
 
       <div className="mb-1">
@@ -69,7 +69,7 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
 
       <hr />
 
-      <button className="save_btn" onClick={saveActivity}>Save</button>
+      <button className="save_btn" onClick={() => saveActivity(false)}>Save</button> <button className="save_btn" onClick={() => saveActivity(true)}>Start Timer</button>
     </div>
   )
 }
