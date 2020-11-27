@@ -1,11 +1,13 @@
-const getTime = (date: Date) => {
-  return date.toISOString().split('T')[1].split(':').slice(0, 2).join(':');
-}
+import dayjs from "dayjs";
+
+export const timeFormat = 'HH:mm';
+export const dateFormat = 'YYYY-MM-DD';
+export const datetimeFormat = dateFormat + " " + timeFormat;
 
 export const formatDate = (date: Date) => {
-  return date.toISOString().split('T')[0] + " " + getTime(date);
+  return dayjs(date).format(datetimeFormat);
 }
 
 export const formatDuration = (duration: number) => {
-  return getTime(new Date(duration * 60 * 1000));
+  return dayjs(duration * 60 * 1000).format(timeFormat);
 }

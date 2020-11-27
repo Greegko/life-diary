@@ -4,6 +4,7 @@
     "start": "./node_modules/.bin/webpack serve --config ./config/webpack-dev.config.js --progress --inline --content-base public/"
   },
   "dependencies": {
+    "dayjs": "1.9.6",
     "node-sass": "5.0.0",
     "ramda": "0.27.1",
     "webpack": "5.6.0"
