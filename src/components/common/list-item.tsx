@@ -31,7 +31,7 @@ export const ListItem = ({ children, actions }: ListItemProperties) => {
 
   return (
     <div className='list-item' {...bind()}>
-      <animated.div className="list-item__content" style={{ transform: props.width.interpolate(width => `translateX(-${width}px)`) }}>
+      <animated.div className="list-item__content" style={{ transform: props.width.to(width => `translateX(-${width}px)`) }}>
         {children}
       </animated.div>
       <animated.div className="list-item__actions" style={props}>
