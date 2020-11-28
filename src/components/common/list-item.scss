@@ -1,0 +1,24 @@
+.list-item {
+  width: 100%;
+  position: relative;
+
+  &__content {
+    transform: none;
+    will-change: transform;
+  }
+
+  &__actions {
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    width: 0px;
+    will-change: width;
+    height: 100%;
+    display: flex;
+
+    &__action {
+      flex: 1;
+      overflow: hidden;
+    }
+  }
+}
