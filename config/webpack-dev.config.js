@@ -6,6 +6,7 @@ module.exports = Object.assign(webpackConfig, {
 
   devServer: {
     historyApiFallback: true,
+    disableHostCheck: true,
     stats: "minimal"
   },
 
