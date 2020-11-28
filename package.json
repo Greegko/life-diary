@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config ./config/webpack.config.js",
-    "start": "./node_modules/.bin/webpack serve --config ./config/webpack-dev.config.js --progress --inline --content-base public/"
+    "build": "npm run fix && webpack --config ./config/webpack.config.js",
+    "start": "npm run fix && webpack serve --config ./config/webpack-dev.config.js --progress --inline --content-base public/",
+    "fix": "node postinstall.js"
   },
   "dependencies": {
     "dayjs": "1.9.6",
@@ -21,6 +22,7 @@
     "sass-loader": "10.1.0",
     "source-map-loader": "1.1.2",
     "style-loader": "2.0.0",
+    "replace-in-file": "6.1.0",
     "ts-loader": "8.0.11",
     "typescript": "4.1.2",
     "webpack-cli": "4.2.0",
