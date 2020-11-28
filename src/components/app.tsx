@@ -30,7 +30,7 @@ export class App extends React.PureComponent<{}, AppState> {
     records: [],
     configs: { activities: [], moods: [] },
     currentUser: null,
-    tab: 0
+    tab: Page.History
   };
 
   store: Store = new Store();

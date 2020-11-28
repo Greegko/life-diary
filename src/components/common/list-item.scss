@@ -1,4 +1,10 @@
 .list-item {
+  &:first-of-type {
+    border-top: 1px solid black;
+  }
+
+  border-bottom: 1px solid black;
+  
   width: 100%;
   position: relative;
 

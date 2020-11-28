@@ -8,8 +8,8 @@ export interface SwipeableProperties {
 }
 
 export const Swipeable = ({ children, onSwipeLeft, onSwipeRight }: SwipeableProperties) => {
-  const bind = useDrag(({ down, velocity, direction: [xDir] }) => {
-    if (!down && velocity > 0.2) {
+  const bind = useDrag(({ down, velocity, direction: [xDir], distance }) => {
+    if (!down && velocity > 0.2 && distance > 250) {
       if (xDir < 0 && onSwipeLeft) {
         onSwipeLeft();
       }

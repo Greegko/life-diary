@@ -31,12 +31,12 @@ export const ListItem = ({ children, actions }: ListItemProperties) => {
 
   return (
     <div className='list-item' {...bind()}>
-      <animated.div className="list-item__content" style={{ transform: props.width.interpolate(x => `translateX(-${x}px)`) }}>
+      <animated.div className="list-item__content" style={{ transform: props.width.interpolate(width => `translateX(-${width}px)`) }}>
         {children}
       </animated.div>
       <animated.div className="list-item__actions" style={props}>
         {actions.map(action => (
-          <div className='list-item__actions__action' style={{ backgroundColor: action.backgroundColor }} onClick={action.onClick}>
+          <div key={action.title} className='list-item__actions__action' onClick={action.onClick} style={{ backgroundColor: action.backgroundColor }}>
             {action.title}
           </div>
         ))}

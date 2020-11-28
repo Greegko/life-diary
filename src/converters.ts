@@ -26,7 +26,8 @@ export const DiaryRecordDataConverter = {
     snapshot: firebase.firestore.QueryDocumentSnapshot<DateToTimestamp<DiaryRecordData>>,
     options: firebase.firestore.SnapshotOptions
   ): DiaryRecordData {
-    return convertAllTimestamps(snapshot.data());
+    const data = snapshot.data();
+    return { id: snapshot.id, ...convertAllTimestamps(data) };
   },
 
   toFirestore(record: DiaryRecordData): firebase.firestore.DocumentData {

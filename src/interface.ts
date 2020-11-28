@@ -14,6 +14,7 @@ export interface DiaryRecordData extends DiaryRecord {
   createdAt: Date;
   updatedAt: Date;
   userId: string;
+  id: string;
 }
 
 export type MoodConfig = { id: string, label: string };

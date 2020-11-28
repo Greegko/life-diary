@@ -1,10 +1,4 @@
 .record-entry {
-  &:first-of-type {
-    border-top: 1px solid black;
-  }
-
-  border-bottom: 1px solid black;
-
   padding: 15px 5px;
 
   div:not(.new-line) {
