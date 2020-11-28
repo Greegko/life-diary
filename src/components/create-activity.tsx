@@ -50,7 +50,7 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
     <div>
       <Options
         value={activityType}
-        options={activityOptions}
+        options={activityOptions.sort((x, y) => x.label < y.label ? -1 : 1)}
         valueChange={activityOption => setActivity(activityOption)}
         label={activity => activity.label}
       ></Options>
