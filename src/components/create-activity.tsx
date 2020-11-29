@@ -38,6 +38,8 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
   }
 
   const saveActivity = (timer: boolean) => {
+    if (newActivity.id === null) return;
+
     if (timer) {
       save({ activity: { ...newActivity, duration: 'timer' } });
     } else {
