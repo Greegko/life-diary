@@ -16,11 +16,11 @@ export class Store {
   }
 
   addRecord(record: DiaryRecord, userId: string) {
-    return this.userRoot(userId).collection('/records').add({
+    return this.userRoot(userId).collection('/records').withConverter(DiaryRecordDataConverter).add({
       ...record,
       createdAt: new Date(),
       updatedAt: new Date()
-    });
+    } as DiaryRecordData);
   }
 
   getRecords(userId: string): firebase.firestore.CollectionReference<DiaryRecordData> {

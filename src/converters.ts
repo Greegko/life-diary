@@ -21,6 +21,25 @@ function convertAllTimestamps<T extends object>(target: T) {
   }, target);
 }
 
+function removeUndefinedValues<T extends object>(target: T) {
+  return mapObjIndexed((val: any, key: string, obj: T) => {
+    if (val === undefined) {
+      delete obj[key];
+      return;
+    }
+
+    if (val instanceof Date) {
+      return val;
+    }
+
+    if (typeof val === 'object' && val !== null) {
+      return removeUndefinedValues(val);
+    }
+
+    return val;
+  }, target);
+}
+
 export const DiaryRecordDataConverter = {
   fromFirestore(
     snapshot: firebase.firestore.QueryDocumentSnapshot<DateToTimestamp<DiaryRecordData>>,
@@ -31,6 +50,6 @@ export const DiaryRecordDataConverter = {
   },
 
   toFirestore(record: DiaryRecordData): firebase.firestore.DocumentData {
-    return record;
+    return removeUndefinedValues(record);
   }
 }
