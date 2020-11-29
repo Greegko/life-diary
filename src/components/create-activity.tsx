@@ -38,7 +38,16 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
   }
 
   const saveActivity = (timer: boolean) => {
-    save({ activity: { ...newActivity, duration: timer ? 'timer' : newActivity.duration } });
+    if (timer) {
+      save({ activity: { ...newActivity, duration: 'timer' } });
+    } else {
+      if (newActivity.duration) {
+        save({ activity: { ...newActivity, duration: newActivity.duration } });
+      } else {
+        save({ activity: newActivity });
+      }
+    }
+
     setActivityType(null);
     setNewActivity({
       id: null,
