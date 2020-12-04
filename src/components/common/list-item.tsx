@@ -27,7 +27,7 @@ export const ListItem = ({ children, actions }: ListItemProperties) => {
     } else {
       set({ width: Math.min(optionsWidth, mx * -1) });
     }
-  });
+  }, { axis: 'x' });
 
   return (
     <div className='list-item' {...bind()}>
