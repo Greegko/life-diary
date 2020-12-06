@@ -21,7 +21,8 @@ export class Store {
 
   updateRecord(recordId: string, recordUpdater: (record: DiaryRecord) => DiaryRecord, userId: string) {
     return this.userRoot(userId).collection('/records').doc(recordId).withConverter(DiaryRecordDataConverter).get().then(doc => {
-      const convertedData = recordUpdater(doc.data());
+      const convertedData = recordUpdater(doc.data()) as DiaryRecordData;
+      convertedData.updatedAt = new Date();
       doc.ref.update(convertedData);
     });
   }
