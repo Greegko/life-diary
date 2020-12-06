@@ -8,7 +8,7 @@ import { CreateComment } from './create-comment';
 import { CreateMood } from './create-mood';
 import { History } from './history';
 import { Login } from './login';
-import { Swipeable } from './common';
+import { Swipeable, Notification } from './common';
 import { appStateInitialValue, appStateReducer, Page } from './app.state';
 import dayjs from 'dayjs';
 
@@ -26,7 +26,9 @@ export const App = () => {
   }
 
   const saveRecord = (record: DiaryRecord) => {
-    store.addRecord(record, state.currentUser.uid);
+    store.addRecord(record, state.currentUser.uid).then(() => {
+      dispatch({ type: 'addNotification', value: 'Activity has been saved!' });
+    });
   }
 
   const onSwipeRight = () => {
@@ -38,7 +40,9 @@ export const App = () => {
   }
 
   const onDeleteRecord = (recordId: string) => {
-    store.deleteRecord(recordId, state.currentUser.uid);
+    store.deleteRecord(recordId, state.currentUser.uid).then(() => {
+      dispatch({ type: 'addNotification', value: 'The activity has been deleted!' });
+    });
   }
 
   const onStopTimerOnRecord = (recordId: string) => {
@@ -46,7 +50,9 @@ export const App = () => {
       record.activity.duration = dayjs(new Date()).diff(record.activity.started, 'minute');
 
       return record;
-    }, state.currentUser.uid);
+    }, state.currentUser.uid).then(() => {
+      dispatch({ type: 'addNotification', value: 'The activity has been updated!' });
+    });
   }
 
   useEffect(() => {
@@ -62,7 +68,7 @@ export const App = () => {
   useEffect(() => {
     const sub = firebase.auth().onAuthStateChanged(currentUser => dispatch({ type: 'setUser', value: currentUser }));
     return () => sub();
-  }, [])
+  }, []);
 
   if (!state.currentUser) {
     return (
@@ -74,6 +80,10 @@ export const App = () => {
 
   return (
     <>
+      {state.notifications.map(([notificationText, id]) =>
+        <Notification key={id} text={notificationText} onDestroy={() => dispatch({ type: 'removeNotification', value: id })} />
+      )}
+
       <Swipeable onSwipeLeft={() => onSwipeLeft()} onSwipeRight={() => onSwipeRight()}>
         {state.currentUser && <div className='tab-content'>
           {state.page === Page.Home && <div>Home</div>}

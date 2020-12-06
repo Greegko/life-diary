@@ -11,6 +11,7 @@ export interface AppState {
     activities: ActivityConfig[];
     moods: MoodConfig[];
   };
+  notifications: [text: string, id: string][];
   page: Page;
 }
 
@@ -18,7 +19,9 @@ export type AppStateAction =
   { type: 'setConfigs', value: { activities: ActivityConfig[], moods: MoodConfig[] } } |
   { type: 'setRecords', value: DiaryRecordData[] } |
   { type: 'setUser', value: firebase.User } |
-  { type: 'setPage', value: Page };
+  { type: 'setPage', value: Page } |
+  { type: 'addNotification', value: string } |
+  { type: 'removeNotification', value: string };
 
 export function appStateReducer(state: AppState, action: AppStateAction): AppState {
   switch (action.type) {
@@ -30,6 +33,10 @@ export function appStateReducer(state: AppState, action: AppStateAction): AppSta
       return { ...state, currentUser: action.value };
     case "setPage":
       return { ...state, page: action.value };
+    case "addNotification":
+      return { ...state, notifications: [...state.notifications, [action.value, Date.now().toString(36)]] };
+    case "removeNotification":
+      return { ...state, notifications: state.notifications.filter(([text, id]) => id !== action.value) };
     default:
       return state;
   }
@@ -39,5 +46,6 @@ export const appStateInitialValue: AppState = {
   records: [],
   configs: { activities: [], moods: [] },
   currentUser: null,
+  notifications: [],
   page: Page.History
 };
