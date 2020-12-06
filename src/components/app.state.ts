@@ -47,5 +47,5 @@ export const appStateInitialValue: AppState = {
   configs: { activities: [], moods: [] },
   currentUser: null,
   notifications: [],
-  page: Page.History
+  page: Page.Home
 };
