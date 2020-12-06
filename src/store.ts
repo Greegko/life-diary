@@ -15,6 +15,17 @@ export class Store {
     });
   }
 
+  deleteRecord(recordId: string, userId: string) {
+    return this.userRoot(userId).collection('/records').doc(recordId).delete();
+  }
+
+  updateRecord(recordId: string, recordUpdater: (record: DiaryRecord) => DiaryRecord, userId: string) {
+    return this.userRoot(userId).collection('/records').doc(recordId).withConverter(DiaryRecordDataConverter).get().then(doc => {
+      const convertedData = recordUpdater(doc.data());
+      doc.ref.update(convertedData);
+    });
+  }
+
   addRecord(record: DiaryRecord, userId: string) {
     return this.userRoot(userId).collection('/records').withConverter(DiaryRecordDataConverter).add({
       ...record,

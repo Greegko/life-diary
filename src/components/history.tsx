@@ -6,19 +6,13 @@ import { formatDate } from './utils';
 
 interface HistoryProperties {
   records: DiaryRecordData[];
+  onDelete: (recordId: string) => void;
+  onStopTimer: (recordId: string) => void;
 }
 
 import './history.scss';
 export const History = (props: HistoryProperties) => {
   const bind = useDrag(({ event }) => event.stopPropagation());
-
-  const onDelete = (recordId: string) => {
-    console.log('Deleted!', recordId);
-  };
-
-  const onStopTimer = (recordId: string) => {
-    console.log('Stop Timer', recordId);
-  };
 
   return (
     <div>
@@ -28,7 +22,7 @@ export const History = (props: HistoryProperties) => {
           if (record.activity) return <ActivityHistory key={i} record={record} />;
           if (record.mood) return <MoodHistory key={i} record={record} />;
           if (record.comment) return <CommentHistory key={i} record={record} />;
-        }).map(wrapHistoryWithListItem({ onDelete, onStopTimer }))}
+        }).map(wrapHistoryWithListItem({ onDelete: props.onDelete, onStopTimer: props.onStopTimer }))}
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import { History } from './history';
 import { Login } from './login';
 import { Swipeable } from './common';
 import { appStateInitialValue, appStateReducer, Page } from './app.state';
+import dayjs from 'dayjs';
 
 import './style.scss';
 import './theme.scss';
@@ -34,6 +35,18 @@ export const App = () => {
 
   const onSwipeLeft = () => {
     dispatch({ type: 'setPage', value: Math.min(Page.Account, state.page + 1) });
+  }
+
+  const onDeleteRecord = (recordId: string) => {
+    store.deleteRecord(recordId, state.currentUser.uid);
+  }
+
+  const onStopTimerOnRecord = (recordId: string) => {
+    store.updateRecord(recordId, record => {
+      record.activity.duration = dayjs(new Date()).diff(record.activity.started, 'minute');
+
+      return record;
+    }, state.currentUser.uid);
   }
 
   useEffect(() => {
@@ -67,7 +80,7 @@ export const App = () => {
           {state.page === Page.Comment && <CreateComment save={record => saveRecord(record)} />}
           {state.page === Page.Mood && <CreateMood moodOptions={state.configs.moods} save={record => saveRecord(record)} />}
           {state.page === Page.Activity && <CreateActivity activityOptions={state.configs.activities} save={record => saveRecord(record)} />}
-          {state.page === Page.History && <History records={state.records} />}
+          {state.page === Page.History && <History records={state.records} onStopTimer={onStopTimerOnRecord} onDelete={onDeleteRecord} />}
           {state.page === Page.Account && (
             <div>
               <button onClick={() => firebase.auth().signOut()}>
