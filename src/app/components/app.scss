@@ -1,44 +1,53 @@
+@import '../colors';
+
 html, body {
   padding: 0px;
   margin: 0px;
   height: 100%;
   user-select: none;
-  background-color: rgb(106, 179, 106);
+  background-color: $app-background;
 }
 
 #app {
-  min-height: 100%;
-  padding-bottom: 120px;
-  background-color: white;
-}
-
-.app-content {
-  padding: 15px;
-}
-
-.app-tabs {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  padding-top: 5px;
-  padding-bottom: 15px;
-  background-color: white;
-  position: fixed;
-  width: 100%;
-  left: 0;
-  bottom: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
 
-  .tab {
+  .header {
+    flex: 0;
+  }
+  
+  .content {
     flex: 1;
-    border: 1px solid black;
-    padding: 10px 15px;
-    margin: 5px;
-    text-align: center;
-    cursor: pointer;
+    padding: 15px;
+    overflow-y: scroll;
+  }
+  
+  .footer {
+    flex: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding-top: 5px;
+    padding-bottom: 15px;
+    background-color: white;
 
-    &--active {
-      background-color: rgb(105, 116, 238);
-      color: white;
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      
+      .tab {
+        flex: 1;
+        border: 1px solid black;
+        padding: 10px 15px;
+        margin: 5px;
+        text-align: center;
+        cursor: pointer;
+        
+        &--active {
+          background-color: rgb(105, 116, 238);
+          color: white;
+        }
+      }
     }
   }
 }

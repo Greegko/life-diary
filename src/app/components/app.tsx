@@ -8,7 +8,7 @@ import { CreateComment } from './create-comment';
 import { CreateMood } from './create-mood';
 import { History } from './history';
 import { Login } from './login';
-import { Swipeable, Notification } from './common';
+import { Swipeable, Notification, Header } from './common';
 import { appStateInitialValue, appStateReducer, Page } from './app.state';
 import dayjs from 'dayjs';
 
@@ -84,8 +84,10 @@ export const App = () => {
         <Notification key={id} text={notificationText} onDestroy={() => dispatch({ type: 'removeNotification', value: id })} />
       )}
 
-      <Swipeable onSwipeLeft={() => onSwipeLeft()} onSwipeRight={() => onSwipeRight()}>
-        <div className="app-content">
+      <Header />
+
+      <div className="content">
+        <Swipeable onSwipeLeft={() => onSwipeLeft()} onSwipeRight={() => onSwipeRight()}>
           {state.currentUser && <div className='tab-content'>
             {state.page === Page.Home && <div>Home</div>}
             {state.page === Page.Comment && <CreateComment save={record => saveRecord(record)} />}
@@ -100,16 +102,18 @@ export const App = () => {
               </div>
             )}
           </div>}
-        </div>
-      </Swipeable>
+        </Swipeable>
+      </div>
 
-      <div className="app-tabs">
-        <div className={"tab" + (state.page === Page.Home ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Home })}>Home</div>
-        <div className={"tab" + (state.page === Page.Comment ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Comment })}>Comment</div>
-        <div className={"tab" + (state.page === Page.Mood ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Mood })}>Mood</div>
-        <div className={"tab" + (state.page === Page.Activity ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Activity })}>Activity</div>
-        <div className={"tab" + (state.page === Page.History ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.History })}>History</div>
-        <div className={"tab" + (state.page === Page.Account ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Account })}>Account</div>
+      <div className="footer">
+        <div className="tabs">
+          <div className={"tab" + (state.page === Page.Home ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Home })}>Home</div>
+          <div className={"tab" + (state.page === Page.Comment ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Comment })}>Comment</div>
+          <div className={"tab" + (state.page === Page.Mood ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Mood })}>Mood</div>
+          <div className={"tab" + (state.page === Page.Activity ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Activity })}>Activity</div>
+          <div className={"tab" + (state.page === Page.History ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.History })}>History</div>
+          <div className={"tab" + (state.page === Page.Account ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Account })}>Account</div>
+        </div>
       </div>
     </>
   )

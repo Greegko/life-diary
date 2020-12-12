@@ -1,0 +1,8 @@
+@import '../../colors';
+
+.header {
+  height: 25px;
+  background-color: $app-background;
+  border-bottom: 1px solid black;
+  padding: 15px;
+}
