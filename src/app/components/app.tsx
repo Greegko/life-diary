@@ -84,7 +84,7 @@ export const App = () => {
         <Notification key={id} text={notificationText} onDestroy={() => dispatch({ type: 'removeNotification', value: id })} />
       )}
 
-      <Header />
+      <Header title="Life Diary" actionText="Settings" onAction={() => dispatch({ type: 'setPage', value: Page.Account })} />
 
       <div className="content">
         <Swipeable onSwipeLeft={() => onSwipeLeft()} onSwipeRight={() => onSwipeRight()}>
@@ -112,7 +112,6 @@ export const App = () => {
           <div className={"tab" + (state.page === Page.Mood ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Mood })}>Mood</div>
           <div className={"tab" + (state.page === Page.Activity ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Activity })}>Activity</div>
           <div className={"tab" + (state.page === Page.History ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.History })}>History</div>
-          <div className={"tab" + (state.page === Page.Account ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Account })}>Account</div>
         </div>
       </div>
     </>

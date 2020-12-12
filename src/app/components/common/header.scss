@@ -1,8 +1,22 @@
-@import '../../colors';
+@import '../../style/colors';
 
 .header {
-  height: 25px;
   background-color: $app-background;
   border-bottom: 1px solid black;
   padding: 15px;
+
+  display: flex;
+
+  &-back {
+    padding-right: 15px;
+    flex: 0;
+  }
+
+  &-title {
+    flex: 1;
+  }
+
+  &-action {
+    flex: 0;
+  }
 }
