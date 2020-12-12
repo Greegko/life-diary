@@ -3,7 +3,7 @@
   "description": "Track your daily habits and draw conclusion from it",
   "icons": [
     {
-      "src": "assets/images/logo.jpg",
+      "src": "assets/logo.jpg",
       "sizes": "180x180",
       "type": "image/jpeg"
     }
