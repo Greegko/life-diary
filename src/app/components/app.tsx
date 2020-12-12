@@ -85,23 +85,25 @@ export const App = () => {
       )}
 
       <Swipeable onSwipeLeft={() => onSwipeLeft()} onSwipeRight={() => onSwipeRight()}>
-        {state.currentUser && <div className='tab-content'>
-          {state.page === Page.Home && <div>Home</div>}
-          {state.page === Page.Comment && <CreateComment save={record => saveRecord(record)} />}
-          {state.page === Page.Mood && <CreateMood moodOptions={state.configs.moods} save={record => saveRecord(record)} />}
-          {state.page === Page.Activity && <CreateActivity activityOptions={state.configs.activities} save={record => saveRecord(record)} />}
-          {state.page === Page.History && <History records={state.records} onStopTimer={onStopTimerOnRecord} onDelete={onDeleteRecord} />}
-          {state.page === Page.Account && (
-            <div>
-              <button onClick={() => firebase.auth().signOut()}>
-                Logout
+        <div className="app-content">
+          {state.currentUser && <div className='tab-content'>
+            {state.page === Page.Home && <div>Home</div>}
+            {state.page === Page.Comment && <CreateComment save={record => saveRecord(record)} />}
+            {state.page === Page.Mood && <CreateMood moodOptions={state.configs.moods} save={record => saveRecord(record)} />}
+            {state.page === Page.Activity && <CreateActivity activityOptions={state.configs.activities} save={record => saveRecord(record)} />}
+            {state.page === Page.History && <History records={state.records} onStopTimer={onStopTimerOnRecord} onDelete={onDeleteRecord} />}
+            {state.page === Page.Account && (
+              <div>
+                <button onClick={() => firebase.auth().signOut()}>
+                  Logout
               </button>
-            </div>
-          )}
-        </div>}
+              </div>
+            )}
+          </div>}
+        </div>
       </Swipeable>
 
-      <div className="tabs">
+      <div className="app-tabs">
         <div className={"tab" + (state.page === Page.Home ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Home })}>Home</div>
         <div className={"tab" + (state.page === Page.Comment ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Comment })}>Comment</div>
         <div className={"tab" + (state.page === Page.Mood ? " tab--active" : "")} onClick={() => dispatch({ type: 'setPage', value: Page.Mood })}>Mood</div>
