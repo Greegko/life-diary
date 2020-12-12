@@ -22,11 +22,11 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index_template.html'
+      template: './src/index.html'
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: "./assets", to: "./assets" }
+        { from: "./src/manifest.webmanifest", to: "./manifest.webmanifest" }
       ],
     })
   ],
