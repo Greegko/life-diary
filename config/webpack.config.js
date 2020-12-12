@@ -26,6 +26,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
+        { from: "./assets", to: "./assets" },
         { from: "./src/manifest.webmanifest", to: "./manifest.webmanifest" }
       ],
     })
