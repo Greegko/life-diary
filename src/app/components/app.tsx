@@ -12,8 +12,8 @@ import { Swipeable, Notification, Header } from './common';
 import { appStateInitialValue, appStateReducer, Page } from './app.state';
 import dayjs from 'dayjs';
 
-import './style.scss';
-import './theme.scss';
+import '../style/theme.scss';
+import '../style/style.scss';
 import './app.scss';
 export const App = () => {
   const [store] = useState(() => new Store());
