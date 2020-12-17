@@ -6,7 +6,7 @@
   display: inline-block;
   cursor: pointer;
 
-  &--selected, &:hover {
+  &--selected {
     background-color: rgb(105, 116, 238);
     color: white;
   }
