@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { ActivityConfig, DiaryRecord, ObservationConfig } from "../interface";
+import { ActivityConfig, DiaryRecord, MoodConfig, ObservationConfig } from "../interface";
 import { formatDate, formatDuration } from './utils';
 import { Options, Stepper } from './common';
 
 interface CreateActivityProperties {
   activityOptions: ActivityConfig[];
   observationOptions: ObservationConfig[];
+  moodOptions: MoodConfig[];
   save: (record: DiaryRecord) => void;
 }
 
-export const CreateActivity = ({ activityOptions, observationOptions, save }: CreateActivityProperties) => {
+export const CreateActivity = ({ activityOptions, observationOptions, moodOptions, save }: CreateActivityProperties) => {
   const [activityType, setActivityType] = useState<ActivityConfig>();
   const [observationType, setObservationType] = useState<ObservationConfig>();
+  const [moodType, setMoodType] = useState<MoodConfig>();
   const [duration, setDuration] = useState<number>(0);
   const [startTime, setStartTime] = useState<Date>(new Date());
 
@@ -51,10 +53,15 @@ export const CreateActivity = ({ activityOptions, observationOptions, save }: Cr
       record.observation = observationType.id;
     }
 
+    if (moodType) {
+      record.mood = moodType.id;
+    }
+
     save(record);
 
     setActivityType(null);
     setObservationType(null);
+    setMoodType(null);
     setDuration(0);
     setStartTime(new Date());
   }
@@ -77,6 +84,18 @@ export const CreateActivity = ({ activityOptions, observationOptions, save }: Cr
           options={observationOptions}
           label={(observation) => observation.label}
           onValueChange={observationOption => setObservationType(observationOption)}
+        ></Options>
+      </div>
+
+      <hr />
+
+      <div className="mb-1">
+        Mood:
+        <Options
+          value={moodType}
+          options={moodOptions}
+          label={(mood) => mood.label}
+          onValueChange={moodOption => setMoodType(moodOption)}
         ></Options>
       </div>
 
