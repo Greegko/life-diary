@@ -36,7 +36,11 @@ export function Options<T>(props: OptionsProperties<T>) {
 
     return <OptionsDisplay {...props} setOption={setOption} />;
   } else {
-    return <OptionsDisplay {...props} value={props.value ? [props.value] : []} setOption={(value: T) => props.onValueChange(value)} />;
+    const setOption = useCallback((toggleOption: T) => {
+      props.onValueChange(props.value !== toggleOption ? toggleOption : null);
+    }, [props.value]);
+
+    return <OptionsDisplay {...props} value={props.value ? [props.value] : []} setOption={setOption} />;
   }
 }
 
