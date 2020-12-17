@@ -14,7 +14,7 @@ export const CreateMood = (props: CreateMoodProperties) => {
 
   return (
     <div>
-      <Options options={props.moodOptions} label={mood => mood.label} valueChange={mood => addMood(mood)} />
+      <Options options={props.moodOptions} label={mood => mood.label} onValueChange={mood => addMood(mood)} />
     </div>
   );
 }
