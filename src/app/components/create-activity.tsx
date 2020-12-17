@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, ActivityConfig, DiaryRecord, ObservationConfig } from "../interface";
+import { ActivityConfig, DiaryRecord, ObservationConfig } from "../interface";
 import { formatDate, formatDuration } from './utils';
 import { Options, Stepper } from './common';
 
@@ -12,52 +12,51 @@ interface CreateActivityProperties {
 export const CreateActivity = ({ activityOptions, observationOptions, save }: CreateActivityProperties) => {
   const [activityType, setActivityType] = useState<ActivityConfig>();
   const [observationType, setObservationType] = useState<ObservationConfig>();
-  const [newActivity, setNewActivity] = useState<Activity | null>({
-    id: null,
-    started: new Date()
-  });
-
-  const setActivity = (activityOption: ActivityConfig) => {
-    setActivityType(activityOption);
-    setNewActivity(activity => ({ ...activity, id: activityOption.id }));
-  }
+  const [duration, setDuration] = useState<number>(0);
+  const [startTime, setStartTime] = useState<Date>(new Date());
 
   const adjustDuration = (duration: number | undefined) => {
-    const activityDuration = (newActivity.duration as number) || 0;
+    const activityDuration = (duration as number) || 0;
     const newDuration = Math.max(0, activityDuration + duration);
     const diff = activityDuration - newDuration;
+
+    setDuration(activityDuration);
 
     if (diff !== 0) {
       adjustStartDate(diff);
     }
-
-    setNewActivity(activity => ({ ...activity, duration: newDuration > 0 ? newDuration : undefined }));
   }
 
-  const adjustStartDate = (minuntesDiff: number) => {
-    const started = new Date(newActivity.started.getTime() + minuntesDiff * 60 * 1000);
-    setNewActivity(activity => ({ ...activity, started }));
+  const adjustStartDate = (minutesDiff: number) => {
+    const started = new Date(startTime.getTime() + minutesDiff * 60 * 1000);
+    setStartTime(started);
   }
 
   const saveActivity = (timer: boolean) => {
-    if (newActivity.id === null) return;
+    if (activityType === null) return;
+
+    const record: DiaryRecord = {
+      activity: { id: activityType.id, started: startTime }
+    }
 
     if (timer) {
-      save({ activity: { ...newActivity, duration: 'timer' } });
-    } else {
-      if (newActivity.duration) {
-        save({ activity: { ...newActivity, duration: newActivity.duration }, observation: observationType.id });
-      } else {
-        save({ activity: newActivity, observation: observationType.id });
-      }
+      record.activity.duration = 'timer';
     }
+
+    if (duration > 0) {
+      record.activity.duration = duration;
+    }
+
+    if (observationType) {
+      record.observation = observationType.id;
+    }
+
+    save(record);
 
     setActivityType(null);
     setObservationType(null);
-    setNewActivity({
-      id: null,
-      started: new Date()
-    });
+    setDuration(0);
+    setStartTime(new Date());
   }
 
   return (
@@ -65,7 +64,7 @@ export const CreateActivity = ({ activityOptions, observationOptions, save }: Cr
       <Options
         value={activityType}
         options={activityOptions.sort((x, y) => x.label < y.label ? -1 : 1)}
-        onValueChange={activityOption => setActivity(activityOption)}
+        onValueChange={activityOption => setActivityType(activityOption)}
         label={activity => activity.label}
       ></Options>
 
@@ -85,12 +84,12 @@ export const CreateActivity = ({ activityOptions, observationOptions, save }: Cr
 
       <div className="mb-1">
         Duration:
-        <Stepper value={formatDuration((newActivity.duration as number) || 0)} onChange={(step: number) => adjustDuration(step)} />
+        <Stepper value={formatDuration((duration as number) || 0)} onChange={(step: number) => adjustDuration(step)} />
       </div>
 
       <div className="mb-1">
         Start time:
-        <Stepper value={formatDate(newActivity.started)} onChange={(step: number) => adjustStartDate(step)} />
+        <Stepper value={formatDate(startTime)} onChange={(step: number) => adjustStartDate(step)} />
       </div>
 
       <hr />
