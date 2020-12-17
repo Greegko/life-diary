@@ -92,7 +92,7 @@ export const App = () => {
             {state.page === Page.Home && <div>Home</div>}
             {state.page === Page.Comment && <CreateComment save={record => saveRecord(record)} />}
             {state.page === Page.Mood && <CreateMood moodOptions={state.configs.moods} save={record => saveRecord(record)} />}
-            {state.page === Page.Activity && <CreateActivity activityOptions={state.configs.activities} save={record => saveRecord(record)} />}
+            {state.page === Page.Activity && <CreateActivity observationOptions={state.configs.observations} activityOptions={state.configs.activities} save={record => saveRecord(record)} />}
             {state.page === Page.History && <History records={state.records} onStopTimer={onStopTimerOnRecord} onDelete={onDeleteRecord} />}
             {state.page === Page.Account && (
               <div>

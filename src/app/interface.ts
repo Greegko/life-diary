@@ -1,12 +1,13 @@
 export interface Activity {
-  id: ActivityConfig['id'];
+  id: ActivityId;
   started: Date;
   duration?: number | 'timer';
 }
 
 export interface DiaryRecord {
-  mood?: MoodConfig['id'];
+  mood?: MoodId;
   activity?: Activity;
+  observation?: ObservationId;
   comment?: string;
 }
 
@@ -16,11 +17,16 @@ export interface DiaryRecordData extends DiaryRecord {
   userId: string;
   id: string;
 }
+export type MoodId = string;
+export type ActivityId = string;
+export type ObservationId = string;
 
-export type MoodConfig = { id: string, label: string };
-export type ActivityConfig = { id: string, label: string, nsfw?: boolean };
+export type MoodConfig = { id: MoodId, label: string };
+export type ActivityConfig = { id: ActivityId, label: string };
+export type ObservationConfig = { id: ObservationId, label: string };
 
 export interface ConfigData {
   moods: MoodConfig[];
   activities: ActivityConfig[];
+  observations: ObservationConfig[];
 }

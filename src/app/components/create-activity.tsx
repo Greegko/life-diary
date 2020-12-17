@@ -1,16 +1,18 @@
-import React from 'react';
-import { Activity, ActivityConfig, DiaryRecord } from "../interface";
+import React, { useState } from 'react';
+import { Activity, ActivityConfig, DiaryRecord, ObservationConfig } from "../interface";
 import { formatDate, formatDuration } from './utils';
 import { Options, Stepper } from './common';
 
 interface CreateActivityProperties {
   activityOptions: ActivityConfig[];
+  observationOptions: ObservationConfig[];
   save: (record: DiaryRecord) => void;
 }
 
-export const CreateActivity = ({ activityOptions, save }: CreateActivityProperties) => {
-  const [activityType, setActivityType] = React.useState<ActivityConfig>();
-  const [newActivity, setNewActivity] = React.useState<Activity | null>({
+export const CreateActivity = ({ activityOptions, observationOptions, save }: CreateActivityProperties) => {
+  const [activityType, setActivityType] = useState<ActivityConfig>();
+  const [observationType, setObservationType] = useState<ObservationConfig>();
+  const [newActivity, setNewActivity] = useState<Activity | null>({
     id: null,
     started: new Date()
   });
@@ -44,13 +46,14 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
       save({ activity: { ...newActivity, duration: 'timer' } });
     } else {
       if (newActivity.duration) {
-        save({ activity: { ...newActivity, duration: newActivity.duration } });
+        save({ activity: { ...newActivity, duration: newActivity.duration }, observation: observationType.id });
       } else {
-        save({ activity: newActivity });
+        save({ activity: newActivity, observation: observationType.id });
       }
     }
 
     setActivityType(null);
+    setObservationType(null);
     setNewActivity({
       id: null,
       started: new Date()
@@ -65,6 +68,18 @@ export const CreateActivity = ({ activityOptions, save }: CreateActivityProperti
         onValueChange={activityOption => setActivity(activityOption)}
         label={activity => activity.label}
       ></Options>
+
+      <hr />
+
+      <div className="mb-1">
+        Observations:
+        <Options
+          value={observationType}
+          options={observationOptions}
+          label={(observation) => observation.label}
+          onValueChange={observationOption => setObservationType(observationOption)}
+        ></Options>
+      </div>
 
       <hr />
 

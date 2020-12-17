@@ -1,22 +1,19 @@
 import firebase from 'firebase';
 
-import { DiaryRecordData, ActivityConfig, MoodConfig } from '../interface';
+import { DiaryRecordData, ConfigData } from '../interface';
 
 export enum Page { Home, Comment, Mood, Activity, History, Account };
 
 export interface AppState {
   currentUser: firebase.User | null;
   records: DiaryRecordData[];
-  configs: {
-    activities: ActivityConfig[];
-    moods: MoodConfig[];
-  };
+  configs: ConfigData;
   notifications: [text: string, id: string][];
   page: Page;
 }
 
 export type AppStateAction =
-  { type: 'setConfigs', value: { activities: ActivityConfig[], moods: MoodConfig[] } } |
+  { type: 'setConfigs', value: ConfigData } |
   { type: 'setRecords', value: DiaryRecordData[] } |
   { type: 'setUser', value: firebase.User } |
   { type: 'setPage', value: Page } |
@@ -44,7 +41,7 @@ export function appStateReducer(state: AppState, action: AppStateAction): AppSta
 
 export const appStateInitialValue: AppState = {
   records: [],
-  configs: { activities: [], moods: [] },
+  configs: { activities: [], moods: [], observations: [] },
   currentUser: null,
   notifications: [],
   page: Page.Home

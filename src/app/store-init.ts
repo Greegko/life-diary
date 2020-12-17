@@ -76,5 +76,11 @@ export const STORE_CONFIG_INIT: ConfigData = {
       label: "Energetic",
       id: "energetic"
     }
+  ],
+  observations: [
+    {
+      id: 'headache',
+      label: 'Headache'
+    }
   ]
 }
