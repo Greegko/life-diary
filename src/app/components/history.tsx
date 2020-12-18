@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useDrag } from 'react-use-gesture';
 import { DiaryRecordData } from '../interface';
 import { ListItem, ListItemAction } from './common';
@@ -40,7 +40,7 @@ interface HistoryDisplayProperties {
 }
 
 const CommentHistory = ({ record }: HistoryDisplayProperties) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="record-entry">
@@ -77,7 +77,7 @@ interface HistoryActionHandlers {
   onStopTimer: (recordId: string) => void;
 }
 
-const wrapHistoryWithListItem = (handlers: HistoryActionHandlers) => (element: React.ReactElement<HistoryDisplayProperties>): JSX.Element => {
+const wrapHistoryWithListItem = (handlers: HistoryActionHandlers) => (element: ReactElement<HistoryDisplayProperties>): JSX.Element => {
   const baseActions: ListItemAction[] = [{ onClick: () => handlers.onDelete(element.props.record.id), title: 'Delete', backgroundColor: 'red' }];
 
   if (element.props.record.activity && element.props.record.activity.duration === 'timer') {

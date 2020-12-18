@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { DiaryRecord } from "../interface";
 
 interface CreateCommentProperties {
@@ -11,7 +11,7 @@ export const CreateComment = (props: CreateCommentProperties) => {
     props.save({ comment });
   }
 
-  const commentRef = React.createRef<HTMLTextAreaElement>();
+  const commentRef = createRef<HTMLTextAreaElement>();
 
   return (
     <div className="comment">

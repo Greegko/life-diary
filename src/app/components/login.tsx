@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { createRef } from 'react';
 
 interface LoginProps {
   login: (email: string, password: string) => void;
 }
 
 export const Login = ({ login }: LoginProps) => {
-  const emailRef = React.createRef<HTMLInputElement>();
-  const passRef = React.createRef<HTMLInputElement>();
+  const emailRef = createRef<HTMLInputElement>();
+  const passRef = createRef<HTMLInputElement>();
 
   return (
     <div>
