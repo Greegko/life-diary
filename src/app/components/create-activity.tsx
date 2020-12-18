@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ActivityConfig, DiaryRecord, MoodConfig, ObservationConfig } from "../interface";
 import { formatDate, formatDuration } from './utils';
 import { Options, Stepper } from './common';
@@ -10,12 +10,15 @@ interface CreateActivityProperties {
   save: (record: DiaryRecord) => void;
 }
 
+import './create-activity.scss';
 export const CreateActivity = ({ activityOptions, observationOptions, moodOptions, save }: CreateActivityProperties) => {
   const [activityType, setActivityType] = useState<ActivityConfig>();
   const [observationType, setObservationType] = useState<ObservationConfig>();
   const [moodType, setMoodType] = useState<MoodConfig>();
   const [duration, setDuration] = useState<number>(0);
   const [startTime, setStartTime] = useState<Date>(new Date());
+
+  const commentRef = useRef<HTMLTextAreaElement>();
 
   const adjustDuration = (duration: number | undefined) => {
     const activityDuration = (duration as number) || 0;
@@ -57,8 +60,13 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
       record.mood = moodType.id;
     }
 
+    if (commentRef.current.value) {
+      record.comment = commentRef.current.value;
+    }
+
     save(record);
 
+    commentRef.current.value = '';
     setActivityType(null);
     setObservationType(null);
     setMoodType(null);
@@ -97,6 +105,13 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
           label={(mood) => mood.label}
           onValueChange={moodOption => setMoodType(moodOption)}
         ></Options>
+      </div>
+
+      <hr />
+
+      <div className="mb-1">
+        Comment:
+        <textarea className="create-activity__comment" ref={commentRef}></textarea>
       </div>
 
       <hr />
