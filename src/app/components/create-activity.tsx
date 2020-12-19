@@ -45,9 +45,7 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
 
     if (timer) {
       record.activity.duration = 'timer';
-    }
-
-    if (duration > 0) {
+    } else if (duration > 0) {
       record.activity.duration = duration;
     }
 
