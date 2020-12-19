@@ -12,9 +12,9 @@ interface CreateActivityProperties {
 
 import './create-activity.scss';
 export const CreateActivity = ({ activityOptions, observationOptions, moodOptions, save }: CreateActivityProperties) => {
-  const [activityType, setActivityType] = useState<ActivityConfig>();
-  const [observationType, setObservationType] = useState<ObservationConfig>();
-  const [moodType, setMoodType] = useState<MoodConfig>();
+  const [activity, setActivity] = useState<ActivityConfig>();
+  const [observation, setObservation] = useState<ObservationConfig>();
+  const [mood, setMood] = useState<MoodConfig>();
   const [duration, setDuration] = useState<number>(0);
   const [startTime, setStartTime] = useState<Date>(new Date());
 
@@ -37,10 +37,10 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
   }
 
   const saveActivity = (timer: boolean) => {
-    if (activityType === null) return;
+    if (activity === null) return;
 
     const record: DiaryRecord = {
-      activity: { id: activityType.id, started: startTime }
+      activity: { id: activity.id, started: startTime }
     }
 
     if (timer) {
@@ -51,12 +51,12 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
       record.activity.duration = duration;
     }
 
-    if (observationType) {
-      record.observation = observationType.id;
+    if (observation) {
+      record.observation = observation.id;
     }
 
-    if (moodType) {
-      record.mood = moodType.id;
+    if (mood) {
+      record.mood = mood.id;
     }
 
     if (commentRef.current.value) {
@@ -66,9 +66,9 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
     save(record);
 
     commentRef.current.value = '';
-    setActivityType(null);
-    setObservationType(null);
-    setMoodType(null);
+    setActivity(null);
+    setObservation(null);
+    setMood(null);
     setDuration(0);
     setStartTime(new Date());
   }
@@ -76,9 +76,9 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
   return (
     <div>
       <Options
-        value={activityType}
+        value={activity}
         options={activityOptions.sort((x, y) => x.label < y.label ? -1 : 1)}
-        onValueChange={activityOption => setActivityType(activityOption)}
+        onValueChange={activityOption => setActivity(activityOption)}
         label={activity => activity.label}
       ></Options>
 
@@ -87,10 +87,10 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
       <div className="mb-1">
         Observations:
         <Options
-          value={observationType}
+          value={observation}
           options={observationOptions}
           label={(observation) => observation.label}
-          onValueChange={observationOption => setObservationType(observationOption)}
+          onValueChange={observationOption => setObservation(observationOption)}
         ></Options>
       </div>
 
@@ -99,10 +99,10 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
       <div className="mb-1">
         Mood:
         <Options
-          value={moodType}
+          value={mood}
           options={moodOptions}
           label={(mood) => mood.label}
-          onValueChange={moodOption => setMoodType(moodOption)}
+          onValueChange={moodOption => setMood(moodOption)}
         ></Options>
       </div>
 
@@ -127,7 +127,8 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
 
       <hr />
 
-      <button className="save_btn" onClick={() => saveActivity(false)}>Save</button> <button className="save_btn" onClick={() => saveActivity(true)}>Start Timer</button>
+      <button className="save_btn" onClick={() => saveActivity(false)}>Save</button>
+      <button className="save_btn" onClick={() => saveActivity(true)}>Start Timer</button>
     </div>
   )
 }
