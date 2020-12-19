@@ -32,6 +32,10 @@ export const CreateState = (props: CreateStateProperties) => {
     }
 
     props.save(record);
+
+    commentRef.current.value = '';
+    setMood(null);
+    setObservation(null);
   };
 
   return (
