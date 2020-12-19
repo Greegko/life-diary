@@ -20,8 +20,8 @@ export const History = (props: HistoryProperties) => {
       <div {...bind()}>
         {props.records.sort(recordOrderer).map((record, i) => {
           if (record.activity) return <ActivityHistory key={i} record={record} />;
-          if (record.mood) return <MoodHistory key={i} record={record} />;
-          if (record.comment) return <CommentHistory key={i} record={record} />;
+
+          return <StateHistory key={i} record={record} />;
         }).map(wrapHistoryWithListItem({ onDelete: props.onDelete, onStopTimer: props.onStopTimer }))}
       </div>
     </div>
@@ -39,35 +39,41 @@ interface HistoryDisplayProperties {
   record: DiaryRecordData;
 }
 
-const CommentHistory = ({ record }: HistoryDisplayProperties) => {
+const StateHistory = ({ record }: HistoryDisplayProperties) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="record-entry">
-      <div>Comment</div>
-      <div style={{ cursor: 'pointer' }} onClick={() => setOpen(!open)}>{open ? "[close]" : "[open]"}</div>
-      <div>{formatDate(record.createdAt)}</div>
-      {open && <pre className="new-line comment">{record.comment}</pre>}
-    </div>
-  )
-}
+      <div className="row">
+        <div className="col-3 col-pad-4">State</div>
+        <div className="col-5">{formatDate(record.createdAt)}</div>
+      </div>
+      {(record.mood || record.observation) && (
+        <div>
+          {record.mood} {record.observation}
+        </div>
+      )}
 
-const MoodHistory = ({ record }: HistoryDisplayProperties) => (
-  <div className="record-entry">
-    <div>Mood</div>
-    <div>{record.mood}</div>
-    <div>{formatDate(record.createdAt)}</div>
-  </div>
-);
+      {record.comment && (
+        <div className="row">
+          <div className="col-12" style={{ cursor: 'pointer' }} onClick={() => setOpen(!open)}>{open ? "[Hide comment]" : "[Show comment]"}</div>
+          {open && <div className="col-12 record-entry__comment">{record.comment}</div>}
+        </div>
+      )}
+    </div>
+  );
+}
 
 const ActivityHistory = ({ record }: HistoryDisplayProperties) => {
   const isTimer = record.activity.duration === 'timer';
 
   return (
     <div className={"record-entry" + (isTimer ? ' record-entry--active' : "")}>
-      <div>Activity</div>
-      <div>{record.activity.id}</div>
-      <div>{formatDate(record.activity.started)}</div>
+      <div className="row">
+        <div className="col-3">Activity</div>
+        <div className="col-4">{record.activity.id}</div>
+        <div className="col-5">{formatDate(record.activity.started)}</div>
+      </div>
     </div>
   );
 }

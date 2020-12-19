@@ -13,6 +13,7 @@ import { appStateInitialValue, appStateReducer, Page } from './app.state';
 
 import '../style/theme.scss';
 import '../style/style.scss';
+import '../style/flex.scss';
 import './app.scss';
 export const App = () => {
   const [store] = useState(() => new Store());

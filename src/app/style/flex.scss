@@ -1,0 +1,20 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-1 { width: 8.3% };
+.col-2 { width: 12.5% };
+.col-3 { width: 25% };
+.col-4 { width: 33.3% };
+.col-6 { width: 50% };
+.col-8 { width: 66.6% };
+.col-12 { width: 100% };
+
+.col-pad-1 { padding-right: 8.3% };
+.col-pad-2 { padding-right: 12.5% };
+.col-pad-3 { padding-right: 25% };
+.col-pad-4 { padding-right: 33.3% };
+.col-pad-6 { padding-right: 50% };
+.col-pad-8 { padding-right: 66.6% };
+.col-pad-12 { padding-right: 100% };
