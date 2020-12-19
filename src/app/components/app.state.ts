@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 import { DiaryRecordData, ConfigData } from '../interface';
 
-export enum Page { Home, Comment, Mood, Activity, History, Account };
+export enum Page { Home, State, Activity, History, Account };
 
 export interface AppState {
   currentUser: firebase.User | null;
