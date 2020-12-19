@@ -47,8 +47,7 @@ export const CreateState = (props: CreateStateProperties) => {
       Comment:
       <textarea className="create-state__comment" ref={commentRef}></textarea>
 
-
-      <button className="save_btn" onClick={() => saveState()}>Save</button>
+      <button className="save_btn mt-1" onClick={() => saveState()}>Save</button>
     </div>
   );
 }

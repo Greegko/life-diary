@@ -127,7 +127,7 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
 
       <hr />
 
-      <button className="save_btn" onClick={() => saveActivity(false)}>Save</button>
+      <button className="save_btn mr-1" onClick={() => saveActivity(false)}>Save</button>
       <button className="save_btn" onClick={() => saveActivity(true)}>Start Timer</button>
     </div>
   )
