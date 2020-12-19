@@ -20,12 +20,11 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
 
   const commentRef = useRef<HTMLTextAreaElement>();
 
-  const adjustDuration = (duration: number | undefined) => {
-    const activityDuration = (duration as number) || 0;
-    const newDuration = Math.max(0, activityDuration + duration);
-    const diff = activityDuration - newDuration;
+  const adjustDuration = (durationStep: number) => {
+    const newDuration = Math.max(0, duration + durationStep);
+    const diff = duration - newDuration;
 
-    setDuration(activityDuration);
+    setDuration(newDuration);
 
     if (diff !== 0) {
       adjustStartDate(diff);
