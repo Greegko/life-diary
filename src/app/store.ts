@@ -36,7 +36,11 @@ export class Store {
   }
 
   getRecords(userId: string): firebase.firestore.CollectionReference<DiaryRecordData> {
-    return this.userRoot(userId).collection('/records').withConverter(DiaryRecordDataConverter) as firebase.firestore.CollectionReference<DiaryRecordData>;
+    return this.userRoot(userId).collection('/records').withConverter(DiaryRecordDataConverter).limit(15) as firebase.firestore.CollectionReference<DiaryRecordData>;
+  }
+
+  getNumberOfRecords(userId: string) {
+    return this.userRoot(userId).collection('/records').get().then(records => records.size);
   }
 
   getConfig(userId: string) {

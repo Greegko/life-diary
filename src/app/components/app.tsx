@@ -62,6 +62,8 @@ export const App = () => {
       next: records => dispatch({ type: 'setRecords', value: records.docs.map(x => x.data() as DiaryRecordData) })
     });
 
+    store.getNumberOfRecords(state.currentUser.uid).then(numberOfRecords => dispatch({ type: 'setAllRecords', value: numberOfRecords }));
+
     store.getConfig(state.currentUser.uid).then(configs => dispatch({ type: 'setConfigs', value: configs }));
   }, [state.currentUser]);
 
@@ -92,7 +94,7 @@ export const App = () => {
             {state.page === Page.Home && <div>Home</div>}
             {state.page === Page.State && <CreateState moodOptions={state.configs.moods} observationOptions={state.configs.observations} save={record => saveRecord(record)} />}
             {state.page === Page.Activity && <CreateActivity moodOptions={state.configs.moods} observationOptions={state.configs.observations} activityOptions={state.configs.activities} save={record => saveRecord(record)} />}
-            {state.page === Page.History && <History records={state.records} onStopTimer={onStopTimerOnRecord} onDelete={onDeleteRecord} />}
+            {state.page === Page.History && <History allRecords={state.allRecords} records={state.records} onStopTimer={onStopTimerOnRecord} onDelete={onDeleteRecord} />}
             {state.page === Page.Account && (
               <div>
                 <button onClick={() => firebase.auth().signOut()}>

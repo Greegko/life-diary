@@ -6,6 +6,7 @@ import { formatDate } from './utils';
 
 interface HistoryProperties {
   records: DiaryRecordData[];
+  allRecords: number;
   onDelete: (recordId: string) => void;
   onStopTimer: (recordId: string) => void;
 }
@@ -16,7 +17,7 @@ export const History = (props: HistoryProperties) => {
 
   return (
     <div>
-      <h2>History: {props.records.length}</h2>
+      <h2>History: {props.allRecords}</h2>
       <div {...bind()}>
         {props.records.sort(recordOrderer).map((record, i) => {
           if (record.activity) return <ActivityHistory key={i} record={record} />;
