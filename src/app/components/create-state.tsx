@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { DiaryRecord, MoodConfig, ObservationConfig } from "../interface";
+import { configsAtom } from './app.state';
 import { Options } from './common';
 
 interface CreateStateProperties {
-  moodOptions: MoodConfig[];
-  observationOptions: ObservationConfig[];
   save: (record: DiaryRecord) => void;
 }
 
 import './create-state.scss';
 export const CreateState = (props: CreateStateProperties) => {
-  // const [recordId, setRecordId] = useState(null);
+  const { moods, observations } = useRecoilValue(configsAtom);
+
   const [mood, setMood] = useState<MoodConfig>(null);
   const [observation, setObservation] = useState<ObservationConfig>(null);
 
@@ -41,11 +42,11 @@ export const CreateState = (props: CreateStateProperties) => {
   return (
     <div className="create-state">
       Mood:
-      <Options options={props.moodOptions} value={mood} label={mood => mood.label} onValueChange={mood => setMood(mood)} />
+      <Options options={moods} value={mood} label={mood => mood.label} onValueChange={mood => setMood(mood)} />
 
       <hr />
       Observation:
-      <Options options={props.observationOptions} value={observation} label={mood => mood.label} onValueChange={observation => setObservation(observation)} />
+      <Options options={observations} value={observation} label={mood => mood.label} onValueChange={observation => setObservation(observation)} />
 
       <hr />
       Comment:

@@ -1,17 +1,19 @@
 import React, { useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+
 import { ActivityConfig, DiaryRecord, MoodConfig, ObservationConfig } from "../interface";
 import { formatDate, formatDuration } from './utils';
 import { Options, Stepper } from './common';
+import { configsAtom } from './app.state';
 
 interface CreateActivityProperties {
-  activityOptions: ActivityConfig[];
-  observationOptions: ObservationConfig[];
-  moodOptions: MoodConfig[];
   save: (record: DiaryRecord) => void;
 }
 
 import './create-activity.scss';
-export const CreateActivity = ({ activityOptions, observationOptions, moodOptions, save }: CreateActivityProperties) => {
+export const CreateActivity = ({ save }: CreateActivityProperties) => {
+  const { activities, moods, observations } = useRecoilValue(configsAtom);
+
   const [activity, setActivity] = useState<ActivityConfig>();
   const [observation, setObservation] = useState<ObservationConfig>();
   const [mood, setMood] = useState<MoodConfig>();
@@ -75,7 +77,7 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
     <div>
       <Options
         value={activity}
-        options={activityOptions.sort((x, y) => x.label < y.label ? -1 : 1)}
+        options={activities.sort((x, y) => x.label < y.label ? -1 : 1)}
         onValueChange={activityOption => setActivity(activityOption)}
         label={activity => activity.label}
       ></Options>
@@ -86,7 +88,7 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
         Observations:
         <Options
           value={observation}
-          options={observationOptions}
+          options={observations}
           label={(observation) => observation.label}
           onValueChange={observationOption => setObservation(observationOption)}
         ></Options>
@@ -98,7 +100,7 @@ export const CreateActivity = ({ activityOptions, observationOptions, moodOption
         Mood:
         <Options
           value={mood}
-          options={moodOptions}
+          options={moods}
           label={(mood) => mood.label}
           onValueChange={moodOption => setMood(moodOption)}
         ></Options>

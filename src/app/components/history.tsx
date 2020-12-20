@@ -1,25 +1,28 @@
 import React, { ReactElement, useState } from 'react';
 import { useDrag } from 'react-use-gesture';
+import { useRecoilValue } from 'recoil';
+
 import { DiaryRecordData } from '../interface';
 import { ListItem, ListItemAction } from './common';
 import { formatDate } from './utils';
+import { allRecordsAtom, recordsSortedSelector } from './app.state';
 
 interface HistoryProperties {
-  records: DiaryRecordData[];
-  allRecords: number;
   onDelete: (recordId: string) => void;
   onStopTimer: (recordId: string) => void;
 }
 
 import './history.scss';
 export const History = (props: HistoryProperties) => {
+  const allRecords = useRecoilValue(allRecordsAtom);
+  const recordsSorted = useRecoilValue(recordsSortedSelector);
   const bind = useDrag(({ event }) => event.stopPropagation());
 
   return (
     <div>
-      <h2>History: {props.allRecords}</h2>
+      <h2>History: {allRecords}</h2>
       <div {...bind()}>
-        {props.records.sort(recordOrderer).map((record, i) => {
+        {recordsSorted.map((record, i) => {
           if (record.activity) return <ActivityHistory key={i} record={record} />;
 
           return <StateHistory key={i} record={record} />;
@@ -28,13 +31,6 @@ export const History = (props: HistoryProperties) => {
     </div>
   );
 };
-
-const recordOrderer = (x: DiaryRecordData, y: DiaryRecordData) => {
-  const dateX = x.activity ? x.activity.started : x.createdAt;
-  const dateY = y.activity ? y.activity.started : y.createdAt;
-
-  return dateX < dateY ? 1 : -1;
-}
 
 interface HistoryDisplayProperties {
   record: DiaryRecordData;

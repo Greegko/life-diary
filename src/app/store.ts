@@ -19,7 +19,7 @@ export class Store {
     return this.userRoot(userId).collection('/records').doc(recordId).delete();
   }
 
-  updateRecord(recordId: string, recordUpdater: (record: DiaryRecord) => DiaryRecord, userId: string) {
+  async updateRecord(recordId: string, recordUpdater: (record: DiaryRecord) => DiaryRecord, userId: string) {
     return this.userRoot(userId).collection('/records').doc(recordId).withConverter(DiaryRecordDataConverter).get().then(doc => {
       const convertedData = recordUpdater(doc.data()) as DiaryRecordData;
       convertedData.updatedAt = new Date();
@@ -39,7 +39,7 @@ export class Store {
     return this.userRoot(userId).collection('/records').withConverter(DiaryRecordDataConverter).limit(15) as firebase.firestore.CollectionReference<DiaryRecordData>;
   }
 
-  getNumberOfRecords(userId: string) {
+  async getNumberOfRecords(userId: string) {
     return this.userRoot(userId).collection('/records').get().then(records => records.size);
   }
 
@@ -48,3 +48,5 @@ export class Store {
   }
 
 }
+
+export const store = new Store();

@@ -1,8 +1,12 @@
 import firebase from 'firebase';
-
+import { atom, selector } from 'recoil';
 import { DiaryRecordData, ConfigData } from '../interface';
 
 export enum Page { Home, State, Activity, History, Account };
+
+export type PageObj = { page: Page, pageTitle: string };
+
+export type NotificationTuple = [text: string, id: string];
 
 export interface AppState {
   currentUser: firebase.User | null;
@@ -10,44 +14,52 @@ export interface AppState {
   allRecords: number;
   configs: ConfigData;
   notifications: [text: string, id: string][];
-  page: Page;
+  page: {
+    page: Page,
+    pageTitle?: string;
+  };
 }
 
-export type AppStateAction =
-  { type: 'setConfigs', value: ConfigData } |
-  { type: 'setRecords', value: DiaryRecordData[] } |
-  { type: 'setAllRecords', value: number } |
-  { type: 'setUser', value: firebase.User } |
-  { type: 'setPage', value: Page } |
-  { type: 'addNotification', value: string } |
-  { type: 'removeNotification', value: string };
+export const configsAtom = atom<ConfigData>({
+  key: 'configs',
+  default: { activities: [], moods: [], observations: [] }
+});
 
-export function appStateReducer(state: AppState, action: AppStateAction): AppState {
-  switch (action.type) {
-    case "setConfigs":
-      return { ...state, configs: action.value };
-    case "setRecords":
-      return { ...state, records: action.value };
-    case "setAllRecords":
-      return { ...state, allRecords: action.value };
-    case "setUser":
-      return { ...state, currentUser: action.value };
-    case "setPage":
-      return { ...state, page: action.value };
-    case "addNotification":
-      return { ...state, notifications: [...state.notifications, [action.value, Date.now().toString(36)]] };
-    case "removeNotification":
-      return { ...state, notifications: state.notifications.filter(([text, id]) => id !== action.value) };
-    default:
-      return state;
+export const pageAtom = atom<PageObj>({
+  key: 'page',
+  default: { page: Page.Home, pageTitle: 'Home' }
+});
+
+export const notificationsAtom = atom<NotificationTuple[]>({
+  key: 'notifications',
+  default: []
+});
+
+export const recordsAtom = atom<DiaryRecordData[]>({
+  key: 'records',
+  default: []
+});
+
+export const recordsSortedSelector = selector<DiaryRecordData[]>({
+  key: 'recordsSorted',
+  get({ get }) {
+    const recordOrderer = (x: DiaryRecordData, y: DiaryRecordData) => {
+      const dateX = x.activity ? x.activity.started : x.createdAt;
+      const dateY = y.activity ? y.activity.started : y.createdAt;
+
+      return dateX < dateY ? 1 : -1;
+    }
+
+    return get(recordsAtom).sort(recordOrderer);
   }
-}
+})
 
-export const appStateInitialValue: AppState = {
-  records: [],
-  allRecords: 0,
-  configs: { activities: [], moods: [], observations: [] },
-  currentUser: null,
-  notifications: [],
-  page: Page.Home
-};
+export const allRecordsAtom = atom<number>({
+  key: 'allRecords',
+  default: 0
+});
+
+export const currentUserIdAtom = atom<string | null>({
+  key: 'currentUserId',
+  default: null
+});
