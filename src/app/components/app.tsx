@@ -39,7 +39,15 @@ export const App = () => {
 
     store.getNumberOfRecords(currentUserId).then(numberOfRecords => setAllRecords(numberOfRecords));
 
-    store.getConfig(currentUserId).then(configs => setConfigs(configs));
+    store.getConfig(currentUserId).then(configs => {
+      const labelSorter = (x, y) => x.label < y.label ? -1 : 1;
+
+      setConfigs({
+        activities: configs.activities.sort(labelSorter),
+        moods: configs.moods.sort(labelSorter),
+        observations: configs.observations.sort(labelSorter)
+      });
+    });
   }, [currentUserId]);
 
   useEffect(() => {

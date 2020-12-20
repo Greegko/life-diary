@@ -77,7 +77,7 @@ export const CreateActivity = ({ save }: CreateActivityProperties) => {
     <div>
       <Options
         value={activity}
-        options={activities.sort((x, y) => x.label < y.label ? -1 : 1)}
+        options={activities}
         onValueChange={activityOption => setActivity(activityOption)}
         label={activity => activity.label}
       ></Options>
