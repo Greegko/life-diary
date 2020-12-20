@@ -50,7 +50,7 @@ export const recordsSortedSelector = selector<DiaryRecordData[]>({
       return dateX < dateY ? 1 : -1;
     }
 
-    return get(recordsAtom).sort(recordOrderer);
+    return [...get(recordsAtom)].sort(recordOrderer);
   }
 })
 
