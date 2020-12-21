@@ -16,6 +16,8 @@
   <script defer src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
   <script defer src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
   <script defer src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       firebase.initializeApp({
@@ -27,6 +29,7 @@
         messagingSenderId: "682482388853",
         appId: "1:682482388853:web:e60d0a23731c3607448d3c"
       });
+      firebase.analytics();
     });
   </script>
 </head>
