@@ -1,8 +1,8 @@
 # Ignore all projects
 node_modules/
+*.log
 
 # Root
 /public
 /.firebase
 /firebase_cloud_key.json
-/firebase-debug.log

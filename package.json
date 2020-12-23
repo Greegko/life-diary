@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "concurrently -n emulator,app \"npm run emulation:start\" \"npm run app:start\"",
-    "emulation:start": "GOOGLE_APPLICATION_CREDENTIALS=secret_cloud_key.json firebase emulators:start",
+    "emulation:start": "GOOGLE_APPLICATION_CREDENTIALS=secret_cloud_key.json firebase emulators:start --only firestore",
     "deploy": "npm run app:build && firebase deploy",
     "app:start": "npm run start --prefix packages/app",
     "app:build": "npm run build --prefix packages/app"
