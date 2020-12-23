@@ -1,2 +1,7 @@
+# Ignore all projects
 node_modules/
-dist/
+
+# Root
+/public
+/.firebase
+/firebase_cloud_key.json

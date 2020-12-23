@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "emulation": "GOOGLE_APPLICATION_CREDENTIALS=secret_cloud_key.json firebase emulators:start",
+    "deploy": "npm run app:build && firebase deploy",
+    "app:start": "npm run start --prefix packages/app",
+    "app:build": "npm run build --prefix packages/app"
+  },
+  "dependencies": {
+    "firebase-tools": "9.1.0"
+  }
+}
