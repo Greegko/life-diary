@@ -5,3 +5,4 @@ node_modules/
 /public
 /.firebase
 /firebase_cloud_key.json
+/firebase-debug.log
