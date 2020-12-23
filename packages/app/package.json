@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "npm run fix && webpack --config ./config/webpack.config.js",
-    "start": "npm run fix && webpack serve --host 0.0.0.0 --config ./config/webpack-dev.config.js --progress --inline --content-base public/",
+    "start": "npm run fix && webpack serve --host 0.0.0.0 --config ./config/webpack-dev.config.js --progress --inline --content-base dist/",
     "fix": "node postinstall.js"
   },
   "dependencies": {

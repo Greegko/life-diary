@@ -7,7 +7,7 @@ module.exports = {
 
   output: {
     filename: "[name].[contenthash].js",
-    path: __dirname + "/../public"
+    path: __dirname + "/../dist"
   },
 
   externals: {
