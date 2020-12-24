@@ -25,6 +25,7 @@ module.exports = Object.assign(webpackConfig, {
         firebase.functions().useEmulator("localhost", 5001);
         firebase.firestore().useEmulator("localhost", 5002);
       `
-    })
+    }),
+    webpackConfig.plugins[1]
   ]
 });
