@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { ActivityConfig, DiaryRecord, MoodConfig, ObservationConfig } from "../interface";
+import { ActivityConfig, DiaryRecord, MoodConfig, ObservationConfig } from "@common/firestore-entities";
 import { formatDate, formatDuration } from './utils';
 import { Options, Stepper } from './common';
 import { configsAtom } from './app.state';

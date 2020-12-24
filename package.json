@@ -1,10 +1,11 @@
 {
   "scripts": {
-    "start": "concurrently -n emulator,app \"npm run emulation:start\" \"npm run app:start\"",
+    "start": "concurrently -n emulator,app,functions \"npm run emulation:start\" \"npm run app:start\" \"npm run functions:watch\"",
     "emulation:start": "firebase emulators:start --only firestore,auth,functions --export-on-exit=./.firebase/cache --import=./.firebase/cache",
     "deploy": "npm run app:build && firebase deploy",
     "app:start": "npm run start --prefix packages/app",
-    "app:build": "npm run build --prefix packages/app"
+    "app:build": "npm run build --prefix packages/app",
+    "functions:watch": "npm run watch --prefix packages/functions"
   },
   "devDependencies": {
     "concurrently": "5.3.0",

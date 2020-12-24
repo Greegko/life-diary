@@ -1,18 +1,11 @@
 import firebase from 'firebase';
-import { STORE_CONFIG_INIT } from './store-init';
-import { ConfigData, DiaryRecord, DiaryRecordData } from './interface';
-import { DiaryRecordDataConverter } from './converters';
+import { ConfigData, DiaryRecord, DiaryRecordData } from '@common/firestore-entities';
+import { DiaryRecordDataConverter } from './firestore-converters';
 
 export class Store {
 
   private userRoot(userId) {
     return firebase.firestore().collection('/users').doc(userId);
-  }
-
-  createUser(userId: string) {
-    this.userRoot(userId).set({
-      configs: STORE_CONFIG_INIT
-    });
   }
 
   deleteRecord(recordId: string, userId: string) {

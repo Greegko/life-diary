@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { atom, selector } from 'recoil';
-import { DiaryRecordData, ConfigData } from '../interface';
+import { DiaryRecordData, ConfigData } from '@common/firestore-entities';
 
 export enum Page { Home, State, Activity, History, Account };
 

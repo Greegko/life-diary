@@ -1,5 +1,5 @@
 import React from 'react';
-import { DiaryRecord } from '../../interface';
+import { DiaryRecord } from '@common/firestore-entities';
 import { CreateState } from '../create-state';
 import { RecordUpdater } from '../hoc';
 

@@ -2,7 +2,11 @@
 node_modules/
 *.log
 
+# Packages
+packages/functions/lib
+
 # Root
 /public
 /.firebase
 /firebase_cloud_key.json
+/functions-lib

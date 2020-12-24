@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react';
 import { useDrag } from 'react-use-gesture';
 import { useRecoilValue } from 'recoil';
 
-import { DiaryRecordData } from '../interface';
+import { DiaryRecordData } from '@common/firestore-entities';
 import { ListItem, ListItemAction } from './common';
 import { formatDate } from './utils';
 import { allRecordsAtom, recordsSortedSelector } from './app.state';

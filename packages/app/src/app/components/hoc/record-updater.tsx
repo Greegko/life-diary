@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import dayjs from "dayjs";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { DiaryRecord } from "../../interface";
+import { DiaryRecord } from "@common/firestore-entities";
 import { store } from "../../store";
 import { currentUserIdAtom, notificationsAtom } from "../app.state";
 

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import firebase from 'firebase';
 
-import { DiaryRecordData } from '../interface';
+import { DiaryRecordData } from '@common/firestore-entities';
 import { Store } from '../store';
 import { Login } from './login';
 import { Notification, Header } from './common';

@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { mapObjIndexed } from 'ramda';
-import { DiaryRecordData } from './interface';
+import { DiaryRecordData } from '@common/firestore-entities';
 
 type DateToTimestamp<T> =
   T extends Date ? firebase.firestore.Timestamp :

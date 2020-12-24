@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { DiaryRecord, MoodConfig, ObservationConfig } from "../interface";
+import { DiaryRecord, MoodConfig, ObservationConfig } from "@common/firestore-entities";
 import { configsAtom } from './app.state';
 import { Options } from './common';
 
