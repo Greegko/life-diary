@@ -51,7 +51,7 @@ export const App = () => {
   }, [currentUserId]);
 
   useEffect(() => {
-    const sub = firebase.auth().onAuthStateChanged(currentUser => setCurrentUserId(currentUser.uid));
+    const sub = firebase.auth().onAuthStateChanged(currentUser => currentUser ? setCurrentUserId(currentUser.uid) : setCurrentUserId(null));
     return () => sub();
   }, []);
 
