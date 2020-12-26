@@ -7,7 +7,7 @@ module.exports = {
 
   output: {
     filename: "[name].[contenthash].js",
-    path: __dirname + "/../../../public"
+    path: __dirname + "/../public"
   },
 
   externals: {
@@ -22,8 +22,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      useEmulator: ''
+      template: './src/index.html'
     }),
     new CopyWebpackPlugin({
       patterns: [
