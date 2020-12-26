@@ -24,31 +24,4 @@ html, body {
     padding: 15px;
     overflow-y: scroll;
   }
-  
-  .footer {
-    flex: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    padding-top: 5px;
-    padding-bottom: 15px;
-    background-color: white;
-
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      
-      .tab {
-        flex: 1;
-        border: 1px solid black;
-        padding: 10px 15px;
-        margin: 5px;
-        text-align: center;
-        cursor: pointer;
-        
-        &--active {
-          background-color: rgb(105, 116, 238);
-          color: white;
-        }
-      }
-    }
-  }
 }

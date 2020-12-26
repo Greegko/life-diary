@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { mapObjIndexed } from 'ramda';
-import { DiaryRecordData } from '@common/firestore-entities';
+import { Goal } from './store';
 
 type DateToTimestamp<T> =
   T extends Date ? firebase.firestore.Timestamp :
@@ -21,16 +21,16 @@ function convertAllTimestamps<T extends object>(target: T) {
   }, target);
 }
 
-export const DiaryRecordDataConverter = {
+export const GoalDataConverter = {
   fromFirestore(
-    snapshot: firebase.firestore.QueryDocumentSnapshot<DateToTimestamp<DiaryRecordData>>,
+    snapshot: firebase.firestore.QueryDocumentSnapshot<DateToTimestamp<Goal>>,
     options: firebase.firestore.SnapshotOptions
-  ): DiaryRecordData {
+  ): Goal {
     const data = snapshot.data();
     return { id: snapshot.id, ...convertAllTimestamps(data) };
   },
 
-  toFirestore(record: DiaryRecordData): firebase.firestore.DocumentData {
+  toFirestore(record: Goal): firebase.firestore.DocumentData {
     return record;
   }
 }

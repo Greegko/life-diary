@@ -2,12 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import firebase from 'firebase';
 
-import { DiaryRecordData } from '@common/firestore-entities';
 import { Store } from '../store';
 import { Login } from './login';
 import { Notification, Header } from './common';
-import { currentUserIdAtom, recordsAtom, allRecordsAtom, configsAtom, notificationsAtom } from './app.state';
-import { Footer } from './footer';
+import { activeGoalsAtom, currentUserIdAtom, notificationsAtom } from './app.state';
 import { Page } from './page';
 
 import '../style/theme.scss';
@@ -18,9 +16,7 @@ export const App = () => {
   const [store] = useState(() => new Store());
   const [currentUserId, setCurrentUserId] = useRecoilState(currentUserIdAtom);
   const [notifications, setNotifications] = useRecoilState(notificationsAtom);
-  const setRecords = useSetRecoilState(recordsAtom);
-  const setAllRecords = useSetRecoilState(allRecordsAtom);
-  const setConfigs = useSetRecoilState(configsAtom);
+  const setActiveGoals = useSetRecoilState(activeGoalsAtom);
 
   const removeNotification = useCallback((id: string) => {
     setNotifications(notifications => notifications.filter(([text, notificationId]) => notificationId !== id));
@@ -33,20 +29,8 @@ export const App = () => {
   useEffect(() => {
     if (currentUserId === null) return;
 
-    store.getRecords(currentUserId).onSnapshot({
-      next: records => setRecords(records.docs.map(x => x.data() as DiaryRecordData))
-    });
-
-    store.getNumberOfRecords(currentUserId).then(numberOfRecords => setAllRecords(numberOfRecords));
-
-    store.getConfig(currentUserId).then(configs => {
-      const labelSorter = (x, y) => x.label < y.label ? -1 : 1;
-
-      setConfigs({
-        activities: configs.activities.sort(labelSorter),
-        moods: configs.moods.sort(labelSorter),
-        observations: configs.observations.sort(labelSorter)
-      });
+    store.getActiveGoals(currentUserId).onSnapshot({
+      next: records => setActiveGoals(records.docs.map(x => x.data()))
     });
   }, [currentUserId]);
 
@@ -74,8 +58,6 @@ export const App = () => {
       <div className="content">
         <Page />
       </div>
-
-      <Footer />
     </>
   )
 }
