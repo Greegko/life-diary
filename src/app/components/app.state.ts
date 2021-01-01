@@ -1,35 +1,25 @@
-import firebase from 'firebase';
 import { atom } from 'recoil';
 
 import { Goal } from '../store';
 
-export enum Page { Home, Comment, History };
+export enum Page { Home, Comment, History, AddGoal };
 
-export type PageObj = { page: Page, pageTitle: string };
+export type PageHeaderAction = { label: string, callback: () => void };
+export type PageState = { page: Page, pageTitle?: string, back?: PageState; pageHeaderAction?: PageHeaderAction };
 
-export type NotificationTuple = [text: string, id: string];
-
-export interface AppState {
-  currentUser: firebase.User | null;
-  notifications: [text: string, id: string][];
-  activeGoals: Goal[];
-  page: {
-    page: Page,
-    pageTitle?: string;
-  };
-}
+export type Notification = [text: string, id: string];
 
 export const activeGoalsAtom = atom<Goal[]>({
   key: 'activeGoals',
   default: []
 });
 
-export const pageAtom = atom<PageObj>({
-  key: 'page',
-  default: { page: Page.Home, pageTitle: 'Home' }
+export const pageStateAtom = atom<PageState | null>({
+  key: 'pageState',
+  default: null
 });
 
-export const notificationsAtom = atom<NotificationTuple[]>({
+export const notificationsAtom = atom<Notification[]>({
   key: 'notifications',
   default: []
 });

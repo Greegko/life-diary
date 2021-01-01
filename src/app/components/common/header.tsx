@@ -1,23 +1,18 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { pageAtom } from '../app.state';
-
-interface HeaderProperty {
-  showBack?: boolean;
-  actionText?: string;
-  onBack?: () => void;
-  onAction?: () => void;
-}
+import { useRecoilState } from 'recoil';
+import { pageStateAtom } from '../app.state';
 
 import './header.scss';
-export const Header = ({ onBack, onAction, showBack, actionText }: HeaderProperty) => {
-  const page = useRecoilValue(pageAtom);
+export const Header = () => {
+  const [pageState, setPageState] = useRecoilState(pageStateAtom);
 
   return (
     <div className='header'>
-      {showBack && <div className="header-back"><a onClick={onBack}>Back</a></div>}
-      <div className="header-title">{page.pageTitle}</div>
-      {actionText && <div className="header-action" onClick={onAction}>{actionText}</div>}
+      {pageState.back && <div className="header-back"><a onClick={() => setPageState(pageState.back)}>Back</a></div>}
+      <div className="header-title">{pageState.pageTitle}</div>
+      {pageState.pageHeaderAction &&
+        <div className="header-action" onClick={pageState.pageHeaderAction.callback}>{pageState.pageHeaderAction.label}</div>
+      }
     </div>
   );
 }

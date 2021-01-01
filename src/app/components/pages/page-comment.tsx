@@ -1,12 +1,18 @@
-import React, { useCallback, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+
 import { store } from '../../store';
-import { currentUserIdAtom } from '../app.state';
+import { currentUserIdAtom, Page, pageStateAtom } from '../app.state';
 
 import './page-comment.scss';
 export const PageComment = () => {
   const textareaRef = useRef<HTMLTextAreaElement>();
   const currentUserId = useRecoilValue(currentUserIdAtom);
+  const setPage = useSetRecoilState(pageStateAtom);
+
+  useEffect(() => {
+    setPage({ page: Page.Comment, pageTitle: 'Comment' });
+  }, []);
 
   const addComment = useCallback(() => {
     const text = textareaRef.current.value;

@@ -1,22 +1,21 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import firebase from 'firebase';
 
-import { Store } from '../store';
+import { store } from '../store';
 import { Login } from './login';
-import { Notification, Header } from './common';
-import { activeGoalsAtom, currentUserIdAtom, notificationsAtom } from './app.state';
-import { Page } from './page';
+import { Notification, Header, Footer } from './common';
+import { activeGoalsAtom, currentUserIdAtom, notificationsAtom, Page, pageStateAtom } from './app.state';
+import { Page as PageDisplay } from './page';
 
 import '../style/theme.scss';
 import '../style/style.scss';
 import '../style/flex.scss';
 import './app.scss';
-import { Footer } from './common/footer';
 export const App = () => {
-  const [store] = useState(() => new Store());
   const [currentUserId, setCurrentUserId] = useRecoilState(currentUserIdAtom);
   const [notifications, setNotifications] = useRecoilState(notificationsAtom);
+  const [pageState, setPageState] = useRecoilState(pageStateAtom);
   const setActiveGoals = useSetRecoilState(activeGoalsAtom);
 
   const removeNotification = useCallback((id: string) => {
@@ -30,6 +29,8 @@ export const App = () => {
   useEffect(() => {
     if (currentUserId === null) return;
 
+    setPageState({ page: Page.Home, pageTitle: 'Home' });
+
     store.getActiveGoals(currentUserId).onSnapshot({
       next: records => setActiveGoals(records.docs.map(x => x.data()))
     });
@@ -40,7 +41,7 @@ export const App = () => {
     return () => sub();
   }, []);
 
-  if (!currentUserId) {
+  if (!currentUserId || !pageState) {
     return (
       <div>
         <Login login={login} />
@@ -57,7 +58,7 @@ export const App = () => {
       <Header />
 
       <div className="content">
-        <Page />
+        <PageDisplay />
       </div>
 
       <Footer />

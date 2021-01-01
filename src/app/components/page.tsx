@@ -1,19 +1,19 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
-import { currentUserIdAtom, pageAtom, Page as PageEnum } from './app.state';
-import { PageTrack, PageComment, PageHistory } from './pages';
+import { pageStateAtom, Page as PageEnum } from './app.state';
+import { PageTrack, PageComment, PageHistory, PageAddGoal } from './pages';
 
 export const Page = () => {
-  const { page } = useRecoilValue(pageAtom);
-  const currentUserId = useRecoilValue(currentUserIdAtom);
+  const pageState = useRecoilValue(pageStateAtom);
 
-  if (currentUserId) {
+  if (pageState) {
     return (
       <div className='tab-content'>
-        {page === PageEnum.Home && <PageTrack />}
-        {page === PageEnum.Comment && <PageComment />}
-        {page === PageEnum.History && <PageHistory />}
+        {pageState.page === PageEnum.Home && <PageTrack />}
+        {pageState.page === PageEnum.Comment && <PageComment />}
+        {pageState.page === PageEnum.History && <PageHistory />}
+        {pageState.page === PageEnum.AddGoal && <PageAddGoal />}
       </div>
     );
   }
