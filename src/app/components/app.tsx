@@ -61,7 +61,7 @@ export const App = () => {
         <PageDisplay />
       </div>
 
-      <Footer />
+      {!pageState.hideFooter && <Footer />}
     </>
   )
 }

@@ -5,7 +5,7 @@ import { Goal } from '../store';
 export enum Page { Home, Comment, History, AddGoal };
 
 export type PageHeaderAction = { label: string, callback: () => void };
-export type PageState = { page: Page, pageTitle?: string, back?: PageState; pageHeaderAction?: PageHeaderAction };
+export type PageState = { page: Page, pageTitle?: string, back?: PageState; pageHeaderAction?: PageHeaderAction, hideFooter?: boolean };
 
 export type Notification = [text: string, id: string];
 
