@@ -10,6 +10,7 @@ export interface GoalRecord {
 export interface GoalTrack {
   type: string;
   paramType?: 'duration' | 'number' | 'boolean';
+  paramDefaultValue?: any;
 }
 
 export interface Goal {

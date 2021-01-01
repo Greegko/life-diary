@@ -1,0 +1,11 @@
+@import '../../style/colors.scss';
+
+.page-add-goal {
+  .save {
+    padding: 5px 10px;
+    font-size: 20px;
+    border: $border;
+    color: $action-text;
+    background-color: $action;
+  }
+}
