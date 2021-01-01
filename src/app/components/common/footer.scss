@@ -1,0 +1,19 @@
+@import '../../style/colors.scss';
+
+.footer {
+  width: 100%;
+  padding-bottom: 15px;
+  display: flex;
+
+  .footer-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background-color: $inactive;   
+    
+    &--active {
+      background-color: $active;
+    }
+  }
+}

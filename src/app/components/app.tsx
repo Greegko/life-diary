@@ -12,6 +12,7 @@ import '../style/theme.scss';
 import '../style/style.scss';
 import '../style/flex.scss';
 import './app.scss';
+import { Footer } from './common/footer';
 export const App = () => {
   const [store] = useState(() => new Store());
   const [currentUserId, setCurrentUserId] = useRecoilState(currentUserIdAtom);
@@ -58,6 +59,8 @@ export const App = () => {
       <div className="content">
         <Page />
       </div>
+
+      <Footer />
     </>
   )
 }

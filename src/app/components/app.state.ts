@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 
 import { Goal } from '../store';
 
-export enum Page { Home };
+export enum Page { Home, Comment, History };
 
 export type PageObj = { page: Page, pageTitle: string };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { currentUserIdAtom, pageAtom, Page as PageEnum } from './app.state';
-import { PageTrack } from './pages';
+import { PageTrack, PageComment, PageHistory } from './pages';
 
 export const Page = () => {
   const { page } = useRecoilValue(pageAtom);
@@ -12,6 +12,8 @@ export const Page = () => {
     return (
       <div className='tab-content'>
         {page === PageEnum.Home && <PageTrack />}
+        {page === PageEnum.Comment && <PageComment />}
+        {page === PageEnum.History && <PageHistory />}
       </div>
     );
   }
