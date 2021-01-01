@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { mapObjIndexed } from 'ramda';
-import { Goal } from './store';
+import { Comment, Goal } from './store';
 
 type DateToTimestamp<T> =
   T extends Date ? firebase.firestore.Timestamp :
@@ -31,6 +31,20 @@ export const GoalDataConverter = {
   },
 
   toFirestore(record: Goal): firebase.firestore.DocumentData {
+    return record;
+  }
+}
+
+export const CommentDataConverter = {
+  fromFirestore(
+    snapshot: firebase.firestore.QueryDocumentSnapshot<DateToTimestamp<Comment>>,
+    options: firebase.firestore.SnapshotOptions
+  ): Comment {
+    const data = snapshot.data();
+    return { id: snapshot.id, ...convertAllTimestamps(data) };
+  },
+
+  toFirestore(record: Comment): firebase.firestore.DocumentData {
     return record;
   }
 }

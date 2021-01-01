@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { GoalDataConverter } from './firestore-converters';
+import { CommentDataConverter, GoalDataConverter } from './firestore-converters';
 
 export interface GoalRecord {
   date: Date;
@@ -22,7 +22,24 @@ export interface Goal {
   tracks: GoalTrack[];
 }
 
+export interface Comment {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  text: string;
+}
+
 export class Store {
+
+  addComment(text: string, userId: string) {
+    firebase.firestore().collection('/comments')
+      .withConverter(CommentDataConverter)
+      .add({
+        text,
+        userId,
+        createdAt: new Date()
+      } as Comment);
+  }
 
   addGoal(goal: Goal, userId: string) {
     return firebase.firestore().collection('/goals')
