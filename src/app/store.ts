@@ -32,7 +32,7 @@ export interface Comment {
 export class Store {
 
   addComment(text: string, userId: string) {
-    firebase.firestore().collection('/comments')
+    return firebase.firestore().collection('/comments')
       .withConverter(CommentDataConverter)
       .add({
         text,

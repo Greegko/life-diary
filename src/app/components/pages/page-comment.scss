@@ -1,0 +1,17 @@
+@import '../../style/colors.scss';
+
+.page-comment {
+  textarea {
+    display: block;
+    width: 95%;
+    height: 300px;
+  }
+
+  .save {
+    padding: 5px 10px;
+    font-size: 20px;
+    border: $border;
+    color: $action-text;
+    background-color: $action;
+  }
+}
