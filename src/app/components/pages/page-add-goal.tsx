@@ -3,10 +3,10 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 
 import { currentUserIdAtom, Page, pageStateAtom } from '../app.state';
+import { Goal, GoalTrack, store } from '../../store';
 import { Options, Stepper } from '../common';
 
 import './page-add-goal.scss';
-import { Goal, GoalTrack, store } from '../../store';
 export const PageAddGoal = () => {
   const setPage = useSetRecoilState(pageStateAtom);
   const currentUserId = useRecoilValue(currentUserIdAtom);
