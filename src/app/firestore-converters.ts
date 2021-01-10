@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { mapObjIndexed } from 'ramda';
+import { mapObjIndexed, pipe } from 'ramda';
 import { Comment, Goal } from './store';
 
 type DateToTimestamp<T> =
@@ -7,14 +7,27 @@ type DateToTimestamp<T> =
   T extends object ? { [K in keyof T]: DateToTimestamp<T[K]> } :
   T;
 
-function convertAllTimestamps<T extends object>(target: T) {
+function convertTimestamps<T extends object>(target: T) {
   return mapObjIndexed((val: any) => {
     if (val instanceof firebase.firestore.Timestamp) {
       return val.toDate();
     }
 
     if (typeof val === 'object' && val !== null) {
-      return convertAllTimestamps(val);
+      return convertTimestamps(val);
+    }
+
+    return val;
+  }, target);
+}
+
+function convertArrays<T extends object>(target: T) {
+  return mapObjIndexed((val: any) => {
+    if (typeof val === 'object') {
+      const keys = Object.keys(val);
+      if (keys.every(x => parseInt(x).toString() === x)) return Object.values(val);
+
+      return convertArrays(val);
     }
 
     return val;
@@ -27,7 +40,13 @@ export const GoalDataConverter = {
     options: firebase.firestore.SnapshotOptions
   ): Goal {
     const data = snapshot.data();
-    return { id: snapshot.id, ...convertAllTimestamps(data) };
+
+    const parsers = pipe(
+      convertTimestamps,
+      convertArrays
+    );
+
+    return { id: snapshot.id, ...parsers(data) };
   },
 
   toFirestore(record: Goal): firebase.firestore.DocumentData {
@@ -41,7 +60,7 @@ export const CommentDataConverter = {
     options: firebase.firestore.SnapshotOptions
   ): Comment {
     const data = snapshot.data();
-    return { id: snapshot.id, ...convertAllTimestamps(data) };
+    return { id: snapshot.id, ...convertTimestamps(data) };
   },
 
   toFirestore(record: Comment): firebase.firestore.DocumentData {
