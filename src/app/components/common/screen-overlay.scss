@@ -1,0 +1,27 @@
+.screen-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  .screen-overlay__wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    
+    .screen-overlay__background {
+      opacity: 0.3;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    }
+    
+    .screen-overlay__content {
+      margin: 40%;
+      position: absolute;
+      font-size: 80px;
+      z-index: 1;
+    }
+  }
+}
