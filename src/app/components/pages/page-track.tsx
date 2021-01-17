@@ -49,7 +49,6 @@ const GoalTrackAction = ({ track }: { track: GoalTrack }) => {
         </ScreenOverlay>
       )}
       <span className="goal-track" onClick={() => setOverlay(true)}>
-
         {track.type}
       </span>
     </>
